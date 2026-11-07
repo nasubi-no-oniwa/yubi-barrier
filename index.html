@@ -32,22 +32,28 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family
 #hudPair{font-size:12px;opacity:.85;letter-spacing:.06em}
 #hudPrice{font-size:30px;font-variant-numeric:tabular-nums;line-height:1.1}
 #hudPrice.dn{color:#ff7070}#hudPrice.up{color:#5be08a}
+#hudMg{font-size:12px;font-variant-numeric:tabular-nums;margin-top:3px;color:#cfe3ff}
+#hudMg.warn{color:#ffd34d}#hudMg.bad{color:#ff5a5a}#hudMg.dim{opacity:.35}
 #hudR{text-align:right;color:#fff;font-weight:900;text-shadow:0 1px 2px #000a}
 #hudCntL{font-size:11px;opacity:.85}
 #hudCnt{font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
 #hudBest{font-size:11px;opacity:.75;font-variant-numeric:tabular-nums}
-#cap{position:fixed;left:10px;right:10px;top:22%;text-align:center;z-index:5;pointer-events:none;font-size:22px;font-weight:900;color:#fff;text-shadow:0 2px 0 #000a,0 0 10px #000a;line-height:1.4}
+#ticker{position:fixed;left:10px;right:10px;top:calc(env(safe-area-inset-top,0px) + 86px);height:26px;z-index:4;pointer-events:none;display:flex;align-items:center;overflow:hidden;border-radius:6px;background:#3a0d12ee;border:1px solid #ff4d4d;box-shadow:0 2px 8px #0008}
+#ticker.up{background:#0d3a1cee;border-color:#3ddc7a}
+#tkL{flex:none;height:100%;display:flex;align-items:center;padding:0 8px;background:#ff3b3b;color:#fff;font-size:11px;font-weight:900;letter-spacing:.1em}
+#ticker.up #tkL{background:#22c55e}
+#tkT{flex:1;min-width:0;padding:0 10px;color:#fff;font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pip{position:fixed;right:calc(env(safe-area-inset-right,0px) + 10px);top:calc(env(safe-area-inset-top,0px) + 120px);width:84px;height:84px;border-radius:50%;border:3px solid #3a4b66;box-shadow:0 4px 12px #000a;z-index:4;pointer-events:none;background:#101826}
+#cap{position:fixed;left:10px;right:10px;top:30%;text-align:center;z-index:5;pointer-events:none;font-size:22px;font-weight:900;color:#fff;text-shadow:0 2px 0 #000a,0 0 10px #000a;line-height:1.4}
 #cap small{font-size:13px;color:#cfe3ff}
-#cap.pop{animation:pop .45s ease-out}
-#big{position:fixed;left:0;right:0;top:34%;text-align:center;font-size:52px;font-weight:900;color:#fff;text-shadow:0 4px 0 #0008,0 0 16px #000a;z-index:7;pointer-events:none;line-height:1.15;padding:0 10px}
+#big{position:fixed;left:0;right:0;top:40%;text-align:center;font-size:52px;font-weight:900;color:#fff;text-shadow:0 4px 0 #0008,0 0 16px #000a;z-index:7;pointer-events:none;line-height:1.15;padding:0 10px}
 #big small{display:block;font-size:18px;margin-top:6px;letter-spacing:.2em;color:#cfe3ff}
 #big.red{color:#ff5a5a}#big.grn{color:#5be08a}#big.cyan{color:var(--bar)}
-#big.pop{animation:pop .5s ease-out}
-@keyframes pop{0%{transform:scale(1.6);opacity:0}60%{transform:scale(.95);opacity:1}100%{transform:scale(1)}}
 #flash{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:0;background:#ff2a2a}
 #fade{position:fixed;inset:0;z-index:6;pointer-events:none;opacity:0;background:#0d131f}
 #pos{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:9;transform:translateX(-50%);border:2px solid #3a4b66;border-radius:99px;background:#16202f;color:#cfe3ff;font:900 13px "Hiragino Maru Gothic ProN",system-ui,sans-serif;padding:8px 16px;white-space:nowrap;touch-action:none;cursor:grab}
 #pos b{color:#5be08a}
+#pos .pl{margin-left:8px;font-variant-numeric:tabular-nums}#pos .pl.dn{color:#ff7070}#pos .pl.up{color:#5be08a}
 #cutBtn{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);z-index:8;transform:translateX(-50%);border:2px solid #fff;border-radius:99px;background:#d8352a;color:#fff;font:900 13px "Hiragino Maru Gothic ProN",system-ui,sans-serif;padding:6px 14px;cursor:pointer;opacity:0;pointer-events:none;white-space:nowrap}
 #skipBtn{position:fixed;right:calc(env(safe-area-inset-right,0px) + 10px);top:calc(env(safe-area-inset-top,0px) + 10px);z-index:9;border:none;border-radius:99px;background:#000a;color:#fffc;font:800 11px "Hiragino Maru Gothic ProN",system-ui,sans-serif;padding:5px 11px;cursor:pointer}
 #mvCap{position:fixed;left:10px;right:10px;bottom:calc(env(safe-area-inset-bottom,0px) + 60px);text-align:center;z-index:5;pointer-events:none;font-size:20px;font-weight:900;color:#fff;text-shadow:0 2px 0 #000a,0 0 8px #000a;letter-spacing:.12em}
@@ -69,6 +75,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family
 .bigNum{font-size:50px;font-weight:900;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.1}
 .bigNum small{font-size:18px}
 .mid{font-size:20px;font-weight:900;margin-top:6px}
+.loss{font-size:14px;font-weight:900;color:#d8352a;margin-top:6px;font-variant-numeric:tabular-nums}
 .note{font-size:13px;min-height:1.3em}
 .note.err{color:#d23}.note.ok{color:#1aa34a}
 .tabs{display:flex;gap:6px;margin-bottom:8px}
@@ -94,7 +101,9 @@ table.rank tr.cut td.r{color:#d8352a;font-size:12px}
 <canvas id="c"></canvas>
 <div id="flash"></div>
 <div id="fade"></div>
-<div id="hud" hidden><div id="hudL"><div id="hudPair"></div><div id="hudPrice">150.000</div></div><div id="hudR"><div id="hudCntL"></div><div id="hudCnt">0</div><div id="hudBest"></div></div></div>
+<div id="hud" hidden><div id="hudL"><div id="hudPair"></div><div id="hudPrice">150.000</div><div id="hudMg"></div></div><div id="hudR"><div id="hudCntL"></div><div id="hudCnt">0</div><div id="hudBest"></div></div></div>
+<div id="ticker" hidden><div id="tkL"></div><div id="tkT"></div></div>
+<canvas id="pip" hidden></canvas>
 <div id="cap"></div>
 <div id="big"></div>
 <div id="mvCap"></div>
@@ -120,6 +129,7 @@ table.rank tr.cut td.r{color:#d8352a;font-size:12px}
   <h2 id="rHead"></h2>
   <div class="bigNum" id="rCnt"></div>
   <div class="mid" id="rGrade"></div>
+  <div class="loss" id="rLoss"></div>
   <p class="note" id="rNote"></p>
   <p class="note" id="sendMsg"></p>
   <button id="againBtn"></button>
@@ -146,6 +156,7 @@ const GAME_URL='https://nasubi-no-oniwa.github.io/yubi-barrier/';
 const QS=new URLSearchParams(location.search);
 const OGP=QS.has('ogp'),ICON=QS.has('icon');
 const PV=window.__YBPV||null; // 確認用（通信しない）
+const MAN=!!(PV&&PV.manual); // 宣伝動画用：1コマずつ進める
 
 // ===== ことば =====
 const TX={
@@ -153,56 +164,64 @@ ja:{title:'指<em>バリア</em><small>FINGER BARRIER</small>',bigTitle:'指バ�
  how:'含み損、ふくらむ。<br>下落が来たら、チャートを<b>指で左右にこすって</b>バリアを張れ。<br>こすりが足りれば反発、足りなければ強制ロスカット。<br>何回耐えられるか。',
  how2:'これはゲームです。本物の相場に指バリアは効きません。',
  start:'取引をはじめる',rank:'ランキング',best:'自己ベスト',none:'まだなし',times:'{n}回',skip:'スキップ ▶▶',
- pair:'ドル円 ・ ロング',cntL:'耐えた回数',pos:'ポジション：<b>ロング</b> 保有中',cut:'損切りする',
+ pair:'ドル円 ・ ロング',cntL:'耐えた回数',pos:'<b>ロング</b> 保有中',cut:'損切りする',mg:'証拠金維持率',tk:'速報',
+ news:['要人、なにか言う','雇用統計、なぜか悪い','大口の売り。たぶん1人','AIが一斉に売った','理由は、とくにない','あなたが買ったから','となりの国がくしゃみ','金曜の夜だから','ロスカット狩り、開始','お昼ごはんの時間','だれかが寝ぼけて売った','チャートが下に行きたい気分'],
+ newsUp:['なぜか買い戻し。理由は不明','指バリアが効いた模様','売っていた人、こわくなる'],hot:'指が、熱い。',
  mv1:'朝。チャートを開く。',mv2:'今日こそ、取り返す。',
- drop:'下落！<br><small>左右にこすってバリアを張れ</small>',drop2:['また下がる！','止めろ！','こすれ！','まだ下がる！','バリアだ！','ここまで！'],
+ drop:'下落！<br><small>左右にこすってバリアを張れ</small>',drop2:['また下がる！','止めろ！','こすれ！','まだ下がる！','バリアだ！','耐えろ！'],
  hold:'反発！',barrier:'バリア',lc:'強制ロスカット',lcSub:'バリア、突破される',cutBig:'損切り',cutSub:'正しく、逃げた',
- rHead:'結果',rHeadCut:'損切りした',sec:'回',ttl:'称号',newbest:'自己ベスト更新！',top:'上位 {p}％',
+ rHead:'結果',rHeadCut:'損切りした',sec:'回',ttl:'称号',newbest:'自己ベスト更新！',top:'上位 {p}％',maxLoss:'最大含み損',
  grades:['即退場','養分','口座開設したての人','含み損と暮らす人','ナンピン職人','指バリア使い','チャートの守護神','為替介入','中央銀行','相場の神','指バリアの開祖'],gradeCut:'損切りできる人',
  cutNote:'{n}回耐えたあと、自分で損切りした。<br>相場でいちばんむずかしいことをやった。',cutCount:'損切りできた人 {n}人',
- post:'指バリアで{n}回、下落を止めた。称号「{g}」',postCut:'{n}回耐えたあと、損切りした。称号「損切りできる人」',tags:'#指バリア',
+ post:'指バリアで{n}回、下落を止めた。最大含み損 {m}。称号「{g}」',postCut:'{n}回耐えたあと、損切りした。称号「損切りできる人」',tags:'#指バリア',
  sending:'送信中…',sent:'記録しました',notbetter:'前の記録の方が多いです',offline:'はじめたときに通信が間に合わなかったので、この回は記録されません',senderr:'送れませんでした',
  again:'もう一回',xpost:'Xに投稿',toTitle:'タイトルへ',today:'今日',alltime:'全期間',rkNote:'下落に耐えた回数ごとの人数',loading:'読み込み中…',empty:'まだ誰もいません',rankerr:'ランキングを読み込めませんでした',cutRow:'損切りした人',people:'{n}人',you:'あなた',back:'もどる'},
 en:{title:'FINGER <em>BARRIER</em><small>指バリア</small>',bigTitle:'FINGER BARRIER',
  how:'Your position is bleeding.<br>When the crash comes, <b>rub the chart left and right</b> to raise a barrier.<br>Rub enough and it bounces. Not enough: margin call.<br>How many drops can you hold?',
  how2:'This is a game. Finger barriers do not work on real markets.',
  start:'Start trading',rank:'Ranking',best:'Best',none:'none yet',times:'{n}',skip:'Skip ▶▶',
- pair:'USD/JPY ・ LONG',cntL:'Drops held',pos:'Position: <b>LONG</b> open',cut:'Cut losses',
+ pair:'USD/JPY ・ LONG',cntL:'Drops held',pos:'<b>LONG</b> open',cut:'Cut losses',mg:'Margin level',tk:'BREAKING',
+ news:['An official said something','Jobs data somehow bad','One big seller. Probably one guy','Every AI sold at once','No particular reason','Because you bought','A neighboring country sneezed',"It's Friday night",'Stop-loss hunt begins',"It's lunch time",'Someone sold half asleep','The chart feels like going down'],
+ newsUp:['Buyback. Reason unknown','Finger barrier reportedly worked','Short sellers got scared'],hot:'Your finger is burning.',
  mv1:'Morning. Open the chart.',mv2:'Today I win it back.',
- drop:'CRASH!<br><small>rub left and right to raise a barrier</small>',drop2:['Dropping again!','Stop it!','Rub!','Still falling!','Barrier!','No lower!'],
+ drop:'CRASH!<br><small>rub left and right to raise a barrier</small>',drop2:['Dropping again!','Stop it!','Rub!','Still falling!','Barrier!','Hold it!'],
  hold:'BOUNCE!',barrier:'Barrier',lc:'MARGIN CALL',lcSub:'the barrier broke',cutBig:'CUT',cutSub:'you got out',
- rHead:'Result',rHeadCut:'You cut your losses',sec:'',ttl:'Title',newbest:'New personal best!',top:'Top {p}%',
+ rHead:'Result',rHeadCut:'You cut your losses',sec:'',ttl:'Title',newbest:'New personal best!',top:'Top {p}%',maxLoss:'Max unrealized loss',
  grades:['Instantly Out','Exit Liquidity','Fresh Account','Living in the Red','Averaging-Down Artisan','Finger Barrier User','Chart Guardian','Market Intervention','Central Bank','God of the Market','Founder of the Finger Barrier'],gradeCut:'Can Actually Cut Losses',
  cutNote:'After holding {n} drops, you cut your losses yourself.<br>The hardest thing in trading.',cutCount:'{n} people cut their losses',
- post:'I held {n} market drops with a finger barrier. Title: {g}',postCut:'Held {n} drops, then cut my losses. Title: Can Actually Cut Losses',tags:'#指バリア',
+ post:'I held {n} market drops with a finger barrier. Max unrealized loss {m}. Title: {g}',postCut:'Held {n} drops, then cut my losses. Title: Can Actually Cut Losses',tags:'#指バリア',
  sending:'Sending…',sent:'Recorded',notbetter:'Your earlier record is higher',offline:'The connection was too slow when you started, so this run won\'t be recorded',senderr:'Could not send',
  again:'Again',xpost:'Post to X',toTitle:'Title',today:'Today',alltime:'All time',rkNote:'Players by drops held',loading:'Loading…',empty:'No one yet',rankerr:'Could not load the ranking',cutRow:'Cut their losses',people:'{n}',you:'you',back:'Back'},
 zh:{title:'手指<em>結界</em><small>FINGER BARRIER・指バリア</small>',bigTitle:'手指結界',
  how:'浮虧越來越大。<br>下跌來了，就<b>用手指左右搓圖表</b>張開結界。<br>搓得夠就反彈，不夠就強制平倉。<br>你能撐幾次？',
  how2:'這是遊戲。真正的行情，手指結界沒有用。',
  start:'開始交易',rank:'排行榜',best:'個人最佳',none:'還沒有',times:'{n}次',skip:'略過 ▶▶',
- pair:'美元/日圓 ・ 做多',cntL:'撐住的次數',pos:'部位：<b>做多</b> 持有中',cut:'停損',
+ pair:'美元/日圓 ・ 做多',cntL:'撐住的次數',pos:'<b>做多</b> 持有中',cut:'停損',mg:'保證金維持率',tk:'快訊',
+ news:['要人說了些什麼','就業數據莫名很差','大額賣單，大概只有一個人','AI 同時賣出','沒有特別的理由','因為你買了','鄰國打了個噴嚏','因為是週五晚上','停損獵殺開始','午餐時間','有人睡迷糊賣了','K線想往下走'],
+ newsUp:['莫名回補，原因不明','據說手指結界奏效','空頭嚇到了'],hot:'手指好燙。',
  mv1:'早上，打開圖表。',mv2:'今天一定要贏回來。',
- drop:'下跌！<br><small>左右搓，張開結界</small>',drop2:['又跌了！','擋住！','快搓！','還在跌！','結界！','到此為止！'],
+ drop:'下跌！<br><small>左右搓，張開結界</small>',drop2:['又跌了！','擋住！','快搓！','還在跌！','結界！','撐住！'],
  hold:'反彈！',barrier:'結界',lc:'強制平倉',lcSub:'結界被突破',cutBig:'停損',cutSub:'正確地逃了',
- rHead:'結果',rHeadCut:'停損了',sec:'次',ttl:'稱號',newbest:'刷新個人最佳！',top:'前 {p}％',
+ rHead:'結果',rHeadCut:'停損了',sec:'次',ttl:'稱號',newbest:'刷新個人最佳！',top:'前 {p}％',maxLoss:'最大浮虧',
  grades:['秒退場','韭菜','剛開戶的人','與浮虧共存','攤平職人','手指結界使','K線守護神','匯率干預','央行','行情之神','手指結界始祖'],gradeCut:'懂得停損的人',
  cutNote:'撐了{n}次之後，自己停損了。<br>做到了交易裡最難的事。',cutCount:'停損的人 {n}人',
- post:'用手指結界擋住了{n}次下跌。稱號「{g}」',postCut:'撐了{n}次之後停損了。稱號「懂得停損的人」',tags:'#指バリア',
+ post:'用手指結界擋住了{n}次下跌。最大浮虧 {m}。稱號「{g}」',postCut:'撐了{n}次之後停損了。稱號「懂得停損的人」',tags:'#指バリア',
  sending:'傳送中…',sent:'已記錄',notbetter:'之前的紀錄比較多',offline:'開始時連線來不及，這次不列入紀錄',senderr:'無法傳送',
  again:'再一次',xpost:'發到 X',toTitle:'回標題',today:'今天',alltime:'全部',rkNote:'依撐住次數統計人數',loading:'讀取中…',empty:'還沒有人',rankerr:'無法讀取排行榜',cutRow:'停損的人',people:'{n}人',you:'你',back:'返回'},
 ko:{title:'손가락 <em>배리어</em><small>FINGER BARRIER・指バリア</small>',bigTitle:'손가락 배리어',
  how:'평가손이 불어난다.<br>하락이 오면 차트를 <b>손가락으로 좌우로 문질러</b> 배리어를 쳐라.<br>충분히 문지르면 반등, 모자라면 강제 로스컷.<br>몇 번 버틸 수 있을까.',
  how2:'이건 게임입니다. 진짜 시장에서는 손가락 배리어가 통하지 않아요.',
  start:'거래 시작',rank:'랭킹',best:'최고 기록',none:'아직 없음',times:'{n}번',skip:'건너뛰기 ▶▶',
- pair:'달러/엔 ・ 롱',cntL:'버틴 횟수',pos:'포지션: <b>롱</b> 보유 중',cut:'손절하기',
+ pair:'달러/엔 ・ 롱',cntL:'버틴 횟수',pos:'<b>롱</b> 보유 중',cut:'손절하기',mg:'증거금 유지율',tk:'속보',
+ news:['요인이 뭔가 말했다','고용지표, 왠지 나쁨','큰손 매도. 아마 한 명','AI가 일제히 팔았다','딱히 이유는 없다','당신이 샀기 때문','이웃 나라가 재채기','금요일 밤이라서','손절 사냥 시작','점심시간','누가 잠결에 팔았다','차트가 내려가고 싶은 기분'],
+ newsUp:['이유 모를 되사기','손가락 배리어가 통한 듯','공매도 세력이 겁먹었다'],hot:'손가락이 뜨겁다.',
  mv1:'아침. 차트를 연다.',mv2:'오늘은 꼭 되찾는다.',
- drop:'하락!<br><small>좌우로 문질러 배리어를 쳐라</small>',drop2:['또 떨어진다!','막아!','문질러!','아직 떨어진다!','배리어다!','여기까지!'],
+ drop:'하락!<br><small>좌우로 문질러 배리어를 쳐라</small>',drop2:['또 떨어진다!','막아!','문질러!','아직 떨어진다!','배리어다!','버텨!'],
  hold:'반등!',barrier:'배리어',lc:'강제 로스컷',lcSub:'배리어가 뚫렸다',cutBig:'손절',cutSub:'제대로 도망쳤다',
- rHead:'결과',rHeadCut:'손절했다',sec:'번',ttl:'칭호',newbest:'최고 기록 갱신!',top:'상위 {p}%',
+ rHead:'결과',rHeadCut:'손절했다',sec:'번',ttl:'칭호',newbest:'최고 기록 갱신!',top:'상위 {p}%',maxLoss:'최대 평가손',
  grades:['즉시 퇴장','개미','막 계좌 튼 사람','평가손과 사는 사람','물타기 장인','손가락 배리어 사용자','차트의 수호신','환율 개입','중앙은행','시장의 신','손가락 배리어의 창시자'],gradeCut:'손절할 줄 아는 사람',
  cutNote:'{n}번 버틴 뒤, 스스로 손절했다.<br>트레이딩에서 가장 어려운 일을 해냈다.',cutCount:'손절한 사람 {n}명',
- post:'손가락 배리어로 하락을 {n}번 막았다. 칭호 「{g}」',postCut:'{n}번 버틴 뒤 손절했다. 칭호 「손절할 줄 아는 사람」',tags:'#指バリア',
+ post:'손가락 배리어로 하락을 {n}번 막았다. 최대 평가손 {m}. 칭호 「{g}」',postCut:'{n}번 버틴 뒤 손절했다. 칭호 「손절할 줄 아는 사람」',tags:'#指バリア',
  sending:'전송 중…',sent:'기록했어요',notbetter:'이전 기록이 더 많아요',offline:'시작할 때 통신이 늦어서 이번 기록은 남지 않아요',senderr:'보내지 못했어요',
  again:'한 번 더',xpost:'X에 올리기',toTitle:'타이틀로',today:'오늘',alltime:'전체',rkNote:'버틴 횟수별 인원',loading:'불러오는 중…',empty:'아직 아무도 없어요',rankerr:'랭킹을 불러오지 못했어요',cutRow:'손절한 사람',people:'{n}명',you:'나',back:'돌아가기'}
 };
@@ -216,6 +235,8 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const lerp=(a,b,k)=>a+(b-a)*k;
 const sm=k=>{k=clamp(k,0,1);return k*k*(3-2*k);};
+const yen=v=>(v<0?'−':'+')+'¥'+Math.abs(Math.round(v/1000)*1000).toLocaleString('en-US');
+let CLK=0; // ゲームの時計（秒）
 
 // ===== 音 =====
 let AC=null,master=null;
@@ -232,56 +253,56 @@ const SFX={
  cut(){if(!ac())return;const n=AC.currentTime;tone(n,1319,.12,'sine',.25);tone(n+.09,1760,.4,'sine',.22);noise(n,.08,'highpass',5000,1,.15);},
  step(){if(!ac())return;const n=AC.currentTime;noise(n,.06,'lowpass',400,1,.12);},
  click(){if(!ac())return;const n=AC.currentTime;noise(n,.03,'highpass',3000,1,.25);tone(n,1200,.03,'square',.06);},
- whoosh(){if(!ac())return;const n=AC.currentTime;noise(n,.9,'bandpass',400,.8,.25,2400);}
+ whoosh(){if(!ac())return;const n=AC.currentTime;noise(n,.9,'bandpass',400,.8,.25,2400);},
+ heart(q){if(!ac())return;const n=AC.currentTime;tone(n,110,.13,'sine',.32+.25*q,60);noise(n,.05,'lowpass',700,1,.22+.2*q);tone(n+.17,98,.12,'sine',.22+.18*q,55);noise(n+.17,.04,'lowpass',600,1,.14+.14*q);}
 };
+const EV=[];
+if(PV){for(const k of Object.keys(SFX)){const f=SFX[k];SFX[k]=(...a)=>{EV.push([+CLK.toFixed(3),k,a.length?a[0]:null]);if(!MAN)f(...a);};}}
 
 // ===== チャート（2D） =====
 const CV=$('chart'),CX=CV.getContext('2d');
 let W=innerWidth,Hh=innerHeight,DPR=Math.min(devicePixelRatio||1,2);
 function resize2d(){W=innerWidth;Hh=innerHeight;DPR=Math.min(devicePixelRatio||1,2);CV.width=W*DPR;CV.height=Hh*DPR;}
 const CT=.2; // ローソク足1本の秒数
-const CH={cs:[],cur:null,ct:0,p:150,vmax:151,vmin:149,lossP:null,bar:null,shards:[]};
-function chReset(p){CH.p=p;CH.cs=[];let q=p-.8;for(let i=0;i<40;i++){const o=q;q+= (Math.random()-.42)*.05;CH.cs.push({o,h:Math.max(o,q)+Math.random()*.02,l:Math.min(o,q)-Math.random()*.02,c:q});}CH.p=q;CH.cur={o:q,h:q,l:q,c:q};CH.ct=0;CH.lossP=null;CH.bar=null;CH.shards=[];CH.vmax=q+.6;CH.vmin=q-.9;}
+const CH={cs:[],cur:null,ct:0,p:150,vmax:151,vmin:149,lossP:null,bar:null,shards:[],sparks:[],danger:0,pulse:0};
+function chReset(p){CH.p=p;CH.cs=[];let q=p-.8;for(let i=0;i<40;i++){const o=q;q+= (Math.random()-.42)*.05;CH.cs.push({o,h:Math.max(o,q)+Math.random()*.02,l:Math.min(o,q)-Math.random()*.02,c:q});}CH.p=q;CH.cur={o:q,h:q,l:q,c:q};CH.ct=0;CH.lossP=null;CH.bar=null;CH.shards=[];CH.sparks=[];CH.danger=0;CH.pulse=0;CH.vmax=q+.6;CH.vmin=q-.9;}
 function chStep(dt){const c=CH.cur;c.c=CH.p;c.h=Math.max(c.h,CH.p);c.l=Math.min(c.l,CH.p);CH.ct+=dt;if(CH.ct>=CT){CH.ct-=CT;CH.cs.push(c);if(CH.cs.length>90)CH.cs.shift();CH.cur={o:CH.p,h:CH.p,l:CH.p,c:CH.p};}
- // 見える範囲
  let hi=-1e9,lo=1e9;const N=visN();for(let i=Math.max(0,CH.cs.length-N);i<CH.cs.length;i++){hi=Math.max(hi,CH.cs[i].h);lo=Math.min(lo,CH.cs[i].l);}hi=Math.max(hi,CH.cur.h);lo=Math.min(lo,CH.cur.l);
  if(CH.lossP!=null){lo=Math.min(lo,CH.lossP);}const pad=(hi-lo)*.12+.05;const th=hi+pad,tl=lo-pad*1.4;const a=1-Math.exp(-dt*3);CH.vmax=lerp(CH.vmax,th,a);CH.vmin=lerp(CH.vmin,tl,a);
- for(const s of CH.shards){s.x+=s.vx*dt;s.y+=s.vy*dt;s.vy+=900*dt;s.r+=s.w*dt;s.a-=dt*.8;}CH.shards=CH.shards.filter(s=>s.a>0);}
+ for(const s of CH.shards){s.x+=s.vx*dt;s.y+=s.vy*dt;s.vy+=900*dt;s.r+=s.w*dt;s.a-=dt*.8;}CH.shards=CH.shards.filter(s=>s.a>0);
+ for(const s of CH.sparks){s.x+=s.vx*dt;s.y+=s.vy*dt;s.vy+=900*dt;s.life-=dt;}CH.sparks=CH.sparks.filter(s=>s.life>0);if(CH.sparks.length>260)CH.sparks.splice(0,CH.sparks.length-260);
+ CH.pulse*=Math.pow(.015,dt);}
 function visN(){return Math.max(24,Math.round(W/16));}
 const chTop=()=>Hh*.17,chBot=()=>Hh*.86;
-function yOf(p,h,top,bot){top=top??chTop();bot=bot??chBot();return top+(CH.vmax-p)/(CH.vmax-CH.vmin)*(bot-top);}
-function pOfY(y){return CH.vmax-(y-chTop())/(chBot()-chTop())*(CH.vmax-CH.vmin);}
+function yOf(p){return chTop()+(CH.vmax-p)/(CH.vmax-CH.vmin)*(chBot()-chTop());}
 function drawChart(ctx,w,h,mini){
  const top=mini?h*.08:chTop(),bot=mini?h*.92:chBot(),right=mini?w*.86:w-54;
  const Y=p=>top+(CH.vmax-p)/(CH.vmax-CH.vmin)*(bot-top);
  ctx.fillStyle='#0d131f';ctx.fillRect(0,0,w,h);
- // 目盛り
  ctx.strokeStyle='#1b2638';ctx.lineWidth=1;ctx.font=(mini?14:11)+'px system-ui,sans-serif';ctx.fillStyle='#5d6f8c';ctx.textAlign='left';ctx.textBaseline='middle';
  const span=CH.vmax-CH.vmin,step=span>4?1:span>2?.5:span>.8?.2:span>.4?.1:.05;for(let v=Math.ceil(CH.vmin/step)*step;v<CH.vmax;v+=step){const y=Y(v);ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(right,y);ctx.stroke();if(!mini)ctx.fillText(v.toFixed(2),right+6,y);}
  for(let x=right-((CH.cs.length*13)%80);x>0;x-=80){ctx.beginPath();ctx.moveTo(x,top-10);ctx.lineTo(x,bot+10);ctx.stroke();}
- // ローソク足
- const N=mini?36:visN(),cw=(right-8)/N,bw=Math.max(2,cw*.62),off=(CH.ct/CT)*cw;
+ const N=mini?36:visN(),cw=(right-8)/N,bw=Math.max(2,cw*.62);
  const all=CH.cs.slice(-N).concat([CH.cur]);
- for(let i=0;i<all.length;i++){const c=all[i],x=right-4-(all.length-1-i)*cw-(i===all.length-1?0:off*0)-cw/2;const up=c.c>=c.o;ctx.strokeStyle=ctx.fillStyle=up?'#22c55e':'#ef4444';
+ for(let i=0;i<all.length;i++){const c=all[i],x=right-4-(all.length-1-i)*cw-cw/2;const up=c.c>=c.o;ctx.strokeStyle=ctx.fillStyle=up?'#22c55e':'#ef4444';
   ctx.beginPath();ctx.moveTo(x,Y(c.h));ctx.lineTo(x,Y(c.l));ctx.lineWidth=Math.max(1,bw*.16);ctx.stroke();const y1=Y(Math.max(c.o,c.c)),y2=Y(Math.min(c.o,c.c));ctx.fillRect(x-bw/2,y1,bw,Math.max(1.5,y2-y1));}
- // いまの値
  const py=Y(CH.p);ctx.setLineDash([4,4]);ctx.strokeStyle='#cfe3ff88';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,py);ctx.lineTo(right,py);ctx.stroke();ctx.setLineDash([]);
  if(!mini){ctx.fillStyle=CH.cur.c>=CH.cur.o?'#22c55e':'#ef4444';ctx.fillRect(right+1,py-9,w-right-2,18);ctx.fillStyle='#fff';ctx.font='bold 11px system-ui,sans-serif';ctx.fillText(CH.p.toFixed(3),right+4,py);}
- // ロスカットの線
  if(CH.lossP!=null){const ly=Y(CH.lossP);ctx.strokeStyle='#ff3b3b';ctx.lineWidth=mini?3:2;ctx.setLineDash([10,6]);ctx.beginPath();ctx.moveTo(0,ly);ctx.lineTo(right,ly);ctx.stroke();ctx.setLineDash([]);
   if(!mini){ctx.fillStyle='#ff3b3b';ctx.font='bold 12px system-ui,sans-serif';ctx.textAlign='left';ctx.fillText(lossLbl(),8,ly+12);}}
- // バリア
  if(CH.bar&&!mini){const b=CH.bar,k=b.k;if(k>0.01||b.broken){const g=ctx.createLinearGradient(0,0,right,0);g.addColorStop(0,'#5ef0ff00');g.addColorStop(.12,'#5ef0ff');g.addColorStop(.88,'#5ef0ff');g.addColorStop(1,'#5ef0ff00');
   ctx.save();ctx.globalAlpha=b.broken?0:clamp(.35+k,0,1);ctx.shadowColor='#5ef0ff';ctx.shadowBlur=8+30*k;ctx.strokeStyle=g;ctx.lineWidth=2+12*k;ctx.beginPath();
   for(let x=0;x<=right;x+=8){const yy=b.y+Math.sin(x*.05+b.ph)*(2+4*(1-k))*b.wob;if(x===0)ctx.moveTo(x,yy);else ctx.lineTo(x,yy);}ctx.stroke();ctx.restore();
   if(!b.broken){ctx.fillStyle='#5ef0ff';ctx.font='bold 13px system-ui,sans-serif';ctx.textAlign='right';ctx.shadowColor='#000';ctx.shadowBlur=4;ctx.fillText(t('barrier')+' '+Math.floor(k*100)+'%',right-6,b.y-14-6*k);ctx.shadowBlur=0;ctx.textAlign='left';}}}
  for(const s of CH.shards){ctx.save();ctx.globalAlpha=clamp(s.a,0,1);ctx.translate(s.x,s.y);ctx.rotate(s.r);ctx.fillStyle='#5ef0ff';ctx.shadowColor='#5ef0ff';ctx.shadowBlur=10;ctx.fillRect(-s.s,-2,s.s*2,4);ctx.restore();}
+ if(!mini&&CH.sparks.length){ctx.save();ctx.lineCap='round';ctx.shadowColor='#ff9a2a';ctx.shadowBlur=8;for(const s of CH.sparks){ctx.globalAlpha=clamp(s.life/s.l0,0,1);ctx.strokeStyle=s.c;ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.lineTo(s.x-s.vx*.025,s.y-s.vy*.025);ctx.stroke();}ctx.restore();}
+ if(!mini&&CH.danger>.01){const a=CH.danger*(.16+.34*CH.pulse);const g=ctx.createRadialGradient(w/2,h*.55,Math.min(w,h)*.32,w/2,h*.55,Math.max(w,h)*.78);g.addColorStop(0,'rgba(255,0,0,0)');g.addColorStop(1,'rgba(255,30,30,'+a.toFixed(3)+')');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);}
 }
 const lossLbl=()=>({ja:'ロスカット',en:'MARGIN CALL',zh:'強制平倉',ko:'로스컷'})[lang];
 
 // ===== 3D =====
 const cv=$('c');
-const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true,preserveDrawingBuffer:OGP||ICON});
+const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true,preserveDrawingBuffer:OGP||ICON||!!PV});
 R.setPixelRatio(Math.min(window.devicePixelRatio||1,2));R.outputColorSpace=THREE.SRGBColorSpace;R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;R.setClearColor(0x000000,0);
 const M=(c,r=.5,o={})=>new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:0,...o});
 const caps=(r,l,m)=>{const g=new THREE.Mesh(new THREE.CapsuleGeometry(r,l,6,16),m);g.castShadow=true;return g;};
@@ -290,7 +311,8 @@ const S=new THREE.Scene();S.background=new THREE.Color(0x101826);S.fog=new THREE
 const CAM=new THREE.PerspectiveCamera(45,1,.02,60);
 S.add(new THREE.HemisphereLight(0xdfe8ff,0x1a1410,.8));
 const lamp=new THREE.SpotLight(0xffe2b8,2.2,0,Math.PI/5,.6,0);lamp.position.set(-1.6,3.6,2.2);lamp.target.position.set(0,.8,.4);lamp.castShadow=true;lamp.shadow.mapSize.set(1024,1024);lamp.shadow.bias=-.001;S.add(lamp,lamp.target);
-const scrLight=new THREE.PointLight(0x7fd8ff,1.6,4,1.5);scrLight.position.set(0,1.2,.35);S.add(scrLight);
+const SCR0=0x7fd8ff;
+const scrLight=new THREE.PointLight(SCR0,1.6,4,1.5);scrLight.position.set(0,1.2,.35);S.add(scrLight);
 const floor=new THREE.Mesh(new THREE.PlaneGeometry(30,30),M(0x2a3242,.95));floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;S.add(floor);
 const wall=new THREE.Mesh(new THREE.PlaneGeometry(30,8),M(0x232c3c,.95));wall.position.set(0,4,-1.2);wall.receiveShadow=true;S.add(wall);
 const DESK=M(0x8a6a4c,.7);
@@ -305,7 +327,6 @@ const screen=new THREE.Mesh(new THREE.PlaneGeometry(.8,.48),new THREE.MeshBasicM
 const SCR_C=new THREE.Vector3(0,.79+.5,-.32+.021);
 const kb=new THREE.Mesh(new THREE.BoxGeometry(.5,.025,.16),M(0x2b313b,.5));kb.position.set(0,.8,.05);kb.castShadow=true;S.add(kb);
 const mug=new THREE.Mesh(new THREE.CylinderGeometry(.045,.04,.1,16),M(0xe8e2d4,.4));mug.position.set(.55,.84,0);mug.castShadow=true;S.add(mug);
-// いす
 const CHAIR=new THREE.Group();CHAIR.position.set(0,0,.62);S.add(CHAIR);
 {const CM=M(0x30353f,.6);const seat=new THREE.Mesh(new THREE.BoxGeometry(.5,.07,.48),CM);seat.position.y=.48;seat.castShadow=true;CHAIR.add(seat);const back=new THREE.Mesh(new THREE.BoxGeometry(.48,.6,.06),CM);back.position.set(0,.84,.24);back.castShadow=true;CHAIR.add(back);
  const pole=new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,.4,10),M(0x777f8a,.3));pole.position.y=.24;CHAIR.add(pole);const bs=new THREE.Mesh(new THREE.CylinderGeometry(.26,.26,.03,5),M(0x444a54,.4));bs.position.y=.03;CHAIR.add(bs);}
@@ -318,21 +339,26 @@ const head=new THREE.Mesh(new THREE.SphereGeometry(.16,24,18),BODY);head.positio
 function limb(r,l1,l2,x,y,parent){const a=new THREE.Group();a.position.set(x,y,0);parent.add(a);const u=caps(r,l1,BODY);u.position.y=-l1/2-r*.3;a.add(u);const k=new THREE.Group();k.position.y=-l1-r*.6;a.add(k);const j=new THREE.Mesh(new THREE.SphereGeometry(r*1.02,12,10),JNT);k.add(j);const d=caps(r*.92,l2,BODY);d.position.y=-l2/2-r*.3;k.add(d);return {a,k};}
 const legL=limb(.065,.36,.36,-.1,0,pel),legR=limb(.065,.36,.36,.1,0,pel);
 const armL=limb(.05,.28,.26,-.22,.55,pel),armR=limb(.05,.28,.26,.22,.55,pel);
+// --- 小窓（パソコンの側から、座っている棒人間を映す） ---
+const PIPC=$('pip');
+const R2=new THREE.WebGLRenderer({canvas:PIPC,antialias:true,preserveDrawingBuffer:!!PV});R2.setPixelRatio(Math.min(window.devicePixelRatio||1,2));R2.outputColorSpace=THREE.SRGBColorSpace;R2.setSize(84,84,false);
+const CAM2=new THREE.PerspectiveCamera(42,1,.05,30);CAM2.position.set(1.2,1.55,-.3);CAM2.lookAt(0,1.0,.6);
 // --- 手前の指（画面の上にかぶせる） ---
 const FS=new THREE.Scene();
 const FC=new THREE.OrthographicCamera(0,1,0,-1,-2000,2000);
 FS.add(new THREE.HemisphereLight(0xffffff,0x334466,1.1));const fl1=new THREE.DirectionalLight(0xfff0e0,1.5);fl1.position.set(-300,500,800);FS.add(fl1);const fl2=new THREE.DirectionalLight(0x5ef0ff,.6);fl2.position.set(400,-200,300);FS.add(fl2);
-const SKIN=M(0xf3cba8,.42);const NAIL=M(0xffe4e0,.25);
+const SKIN=M(0xf3cba8,.42),FINGM=M(0xf3cba8,.42),NAIL=M(0xffe4e0,.25);
+const SKC=new THREE.Color(0xf3cba8),HOTC=new THREE.Color(0xff5040),CYC=new THREE.Color(0x5ef0ff),ORC=new THREE.Color(0xffa040);
 const HAND=new THREE.Group();FS.add(HAND);
 const HROT=new THREE.Group();HAND.add(HROT);
-{const f=caps(.5,2.3,SKIN);f.position.y=-1.65;HROT.add(f);const nail=new THREE.Mesh(new THREE.SphereGeometry(.36,14,10),NAIL);nail.scale.set(1,1.3,.35);nail.position.set(0,-.55,.4);HROT.add(nail);
+{const f=caps(.5,2.3,FINGM);f.position.y=-1.65;HROT.add(f);const nail=new THREE.Mesh(new THREE.SphereGeometry(.36,14,10),NAIL);nail.scale.set(1,1.3,.35);nail.position.set(0,-.55,.4);HROT.add(nail);
  const fist=new THREE.Mesh(new THREE.SphereGeometry(1.25,24,18),SKIN);fist.scale.set(1.15,1.05,.9);fist.position.set(.55,-4.1,-.2);HROT.add(fist);
  for(let i=0;i<3;i++){const c=caps(.42,.7,SKIN);c.rotation.z=Math.PI/2;c.position.set(.75+i*.12,-3.25-i*.72,.62);HROT.add(c);}
  const th=caps(.42,1.1,SKIN);th.rotation.z=.75;th.position.set(-.55,-3.8,.55);HROT.add(th);
  const arm=caps(1.05,6,SKIN);arm.position.set(.95,-8.4,-.4);arm.rotation.z=-.12;HROT.add(arm);
  const cuff=new THREE.Mesh(new THREE.CylinderGeometry(1.25,1.25,1.6,24),M(0x2d3a52,.6));cuff.position.set(1.25,-10.6,-.4);cuff.rotation.z=-.12;HROT.add(cuff);}
 const tipGlow=new THREE.Mesh(new THREE.SphereGeometry(1,20,14),new THREE.MeshBasicMaterial({color:0x5ef0ff,transparent:true,opacity:0}));HROT.add(tipGlow);
-let U=30; // 指の太さの基準（ピクセル）
+let U=30;
 function resize(){resize2d();const w=innerWidth,h=innerHeight;R.setSize(w,h,false);CAM.aspect=w/h;CAM.fov=w<h?62:45;CAM.updateProjectionMatrix();FC.left=0;FC.right=w;FC.top=0;FC.bottom=-h;FC.updateProjectionMatrix();U=clamp(Math.min(w,h)*.05,16,30);HAND.scale.setScalar(U);}
 addEventListener('resize',resize);resize();
 const HS={x:0,y:0,tx:0,ty:0,rz:-.32,vx:0,touch:0};
@@ -340,28 +366,35 @@ function handRest(){HS.tx=W*.8;HS.ty=Hh*.78;}
 function handStep(dt,now){const a=1-Math.exp(-dt*(HS.touch?40:8));HS.x=lerp(HS.x,HS.tx,a);HS.y=lerp(HS.y,HS.ty,a);
  const bob=HS.touch?0:Math.sin(now/600)*4;HAND.position.set(HS.x,-(HS.y+bob),0);
  HS.vx*=Math.pow(.02,dt);const rz=-.3+clamp(HS.vx/3000,-.35,.35);HS.rz=lerp(HS.rz,rz,1-Math.exp(-dt*14));HROT.rotation.set(-.55,0,HS.rz);
+ const sp=HS.touch?clamp((G.rs||0)/6,0,1):0,heat=clamp((G.rubTot||0)/110,0,1)*.8;
+ FINGM.color.copy(SKC).lerp(HOTC,heat);FINGM.emissive.setRGB(.45*sp,.06*sp,0);tipGlow.material.color.copy(CYC).lerp(ORC,sp);
  tipGlow.material.opacity=lerp(tipGlow.material.opacity,HS.touch&&G.ph==='drop'?.5:0,.2);tipGlow.scale.setScalar(.7+.25*Math.sin(now/60));}
 
 // ===== 画面まわり =====
 const PANELS=['title','result','rankPanel'];
 function show(id){PANELS.forEach(p=>$(p).hidden=(p!==id));}
-function cap(h,pop){const c=$('cap');if(c.innerHTML!==h){c.innerHTML=h;if(pop&&h){c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop');}}}
-function big(h,cls){const b=$('big');b.innerHTML=h;b.className=cls||'';if(h){void b.offsetWidth;b.classList.add('pop');}}
-let flashA=0,shakeA=0;
+const POPS=[];function pop(el){el._p0=CLK;if(!POPS.includes(el))POPS.push(el);}
+function popStep(){for(const el of POPS){if(el._p0==null)continue;const k=(CLK-el._p0)/.45;if(k>=1){el.style.transform='';el.style.opacity='';el._p0=null;continue;}const s=k<.6?lerp(1.6,.95,k/.6):lerp(.95,1,(k-.6)/.4);el.style.transform='scale('+s.toFixed(3)+')';el.style.opacity=clamp(k/.3,0,1).toFixed(2);}}
+function cap(h,p){const c=$('cap');if(c.innerHTML!==h){c.innerHTML=h;if(p&&h)pop(c);}}
+function big(h,cls){const b=$('big');b.innerHTML=h;b.className=cls||'';if(h)pop(b);}
+const TK={t0:-9,hideAt:null};
+function news(up){const arr=t(up?'newsUp':'news');const s=arr[(Math.random()*arr.length)|0];const tk=$('ticker');tk.hidden=false;tk.className=up?'up':'';$('tkL').textContent=t('tk');$('tkT').textContent=s;TK.t0=CLK;TK.hideAt=null;}
+function tickStep(){const tk=$('ticker');if(tk.hidden)return;const k=sm((CLK-TK.t0)/.28);$('tkT').style.transform='translateX('+((1-k)*100).toFixed(1)+'%)';if(TK.hideAt!=null&&CLK>=TK.hideAt){tk.hidden=true;TK.hideAt=null;}}
+let flashA=0,shakeA=0,fadeA=0,fadeTo=null;
 let best=ls.get('yb_best',0);
-function showBest(){const f=best?t('times',{n:best}):t('none');$('tBest').textContent=t('best')+'：'+f;$('hudBest').textContent=t('best')+' '+f;}
+function showBest(){const f=best?t('times',{n:best}):t('none');$('tTitle')&&($('tBest').textContent=t('best')+'：'+f);$('hudBest').textContent=t('best')+' '+f;}
 function applyLang(){document.documentElement.lang=lang==='zh'?'zh-Hant':lang;
  $('tTitle').innerHTML=t('title');$('tHow').innerHTML=t('how');$('tHow2').textContent=t('how2');$('startBtn').textContent=t('start');$('rankBtn').textContent=t('rank');
- $('hudPair').textContent=t('pair');$('hudCntL').textContent=t('cntL');$('pos').innerHTML=t('pos');$('cutBtn').textContent=t('cut');$('skipBtn').textContent=t('skip');
+ $('hudPair').textContent=t('pair');$('hudCntL').textContent=t('cntL');$('pos').innerHTML=t('pos')+'<span class="pl" id="posPL"></span>';$('cutBtn').textContent=t('cut');$('skipBtn').textContent=t('skip');
  $('againBtn').textContent=t('again');$('xBtn').textContent=t('xpost');$('rRank').textContent=t('rank');$('rTop').textContent=t('toTitle');
  $('rkTitle').textContent=t('rank');$('rkNote').textContent=t('rkNote');$('rankBack').textContent=t('back');$('tabDay').textContent=t('today');$('tabAll').textContent=t('alltime');
- $('langs').innerHTML=LANGS.map(([k,l])=>'<button data-l="'+k+'"'+(k===lang?' class="on"':'')+'>'+l+'</button>').join('');showBest();}
+ $('langs').innerHTML=LANGS.map(([k,l])=>'<button data-l="'+k+'"'+(k===lang?' class="on"':'')+'>'+l+'</button>').join('');showBest();if(G)G.plS='';}
 $('langs').onclick=e=>{const b=e.target.closest('button');if(!b)return;lang=b.dataset.l;ls.set('yb_lang',lang);applyLang();};
 
 // ===== 状態 =====
 let mode='boot',mT=0,G={};
-function hudOn(on){$('hud').hidden=!on;$('pos').hidden=!on;$('cutBtn').hidden=!on;}
-function showTitle(){mode='title';mT=0;show('title');hudOn(false);$('skipBtn').hidden=true;$('mvCap').textContent='';big('');cap('');chReset(150);handRest();HS.touch=0;$('fade').style.opacity=0;}
+function hudOn(on){$('hud').hidden=!on;$('pos').hidden=!on;$('cutBtn').hidden=!on;$('pip').hidden=!on;if(!on)$('ticker').hidden=true;}
+function showTitle(){mode='title';mT=0;show('title');hudOn(false);$('skipBtn').hidden=true;$('mvCap').textContent='';big('');cap('');chReset(150);handRest();HS.touch=0;fadeA=0;fadeTo=null;G={};}
 $('startBtn').onclick=()=>{ac();SFX.click();startMV();};
 $('againBtn').onclick=()=>{ac();SFX.click();startMV();};
 $('rTop').onclick=showTitle;
@@ -369,83 +402,107 @@ $('rTop').onclick=showTitle;
 // --- MV：部屋に入ってきてパソコンの前に座る → 画面に寄る ---
 const MV_END=7.2;let mvEv={};
 const camP=new THREE.Vector3(),camL=new THREE.Vector3();
-function startMV(){mode='mv';mT=0;mvEv={};show(null);hudOn(false);big('');cap('');chReset(150);$('skipBtn').hidden=false;$('fade').style.opacity=0;
- P.position.set(-2.4,0,2.6);P.rotation.y=Math.PI*.8;P.visible=true;pel.position.y=.92;pel.rotation.x=0;}
+function startMV(){mode='mv';mT=0;mvEv={};G={};show(null);hudOn(false);big('');cap('');chReset(150);$('skipBtn').hidden=false;fadeA=0;fadeTo=null;
+ P.position.set(-2.4,0,2.6);P.rotation.set(0,Math.PI*.8,0);P.visible=true;pel.position.set(0,.92,0);pel.rotation.set(0,0,0);scrLight.color.setHex(SCR0);scrLight.intensity=1.6;}
 function poseWalk(ph,amp){legL.a.rotation.x=Math.sin(ph)*.55*amp;legR.a.rotation.x=-Math.sin(ph)*.55*amp;legL.k.rotation.x=Math.max(0,-Math.sin(ph))*.7*amp;legR.k.rotation.x=Math.max(0,Math.sin(ph))*.7*amp;
  armL.a.rotation.x=-Math.sin(ph)*.45*amp;armR.a.rotation.x=Math.sin(ph)*.45*amp;armL.k.rotation.x=-.25;armR.k.rotation.x=-.25;armL.a.rotation.z=-.08;armR.a.rotation.z=.08;pel.position.y=.92+Math.abs(Math.cos(ph))*.03*amp;}
 const _v=new THREE.Vector3(),_v2=new THREE.Vector3();
 const portrait=()=>innerWidth<innerHeight;
 function mvUpdate(dt){const tt=mT;
- // 歩く（0〜2.6）
  const A=_v.set(-2.4,0,2.6),B=_v2.set(0,0,.95);
  if(tt<2.6){const k=sm(tt/2.6);P.position.lerpVectors(A,B,k);const dir=Math.atan2(B.x-A.x,B.z-A.z);P.rotation.y=lerp(dir,Math.PI,sm((tt-1.9)/.7));poseWalk(tt*9,1);
   if(Math.floor(tt*9/Math.PI)!==mvEv.st){mvEv.st=Math.floor(tt*9/Math.PI);SFX.step();}}
  else if(tt<3.4){const k=sm((tt-2.6)/.8);P.position.set(0,0,lerp(.95,.66,k));P.rotation.y=Math.PI;poseWalk(0,0);
-  // 座る（体はいすの上、ももは前、すねは下）
   pel.position.y=lerp(.92,.55,k);legL.a.rotation.x=legR.a.rotation.x=lerp(0,-1.5,k);legL.k.rotation.x=legR.k.rotation.x=lerp(0,1.5,k);if(!mvEv.sit&&k>.8){mvEv.sit=1;SFX.click();}}
- else{P.position.set(0,0,.66);pel.position.y=.55;legL.a.rotation.x=legR.a.rotation.x=-1.5;legL.k.rotation.x=legR.k.rotation.x=1.5;
-  // 指を立てる（3.6〜）
+ else{P.position.set(0,0,.66);P.rotation.y=Math.PI;pel.position.y=.55;legL.a.rotation.x=legR.a.rotation.x=-1.5;legL.k.rotation.x=legR.k.rotation.x=1.5;
   const k=sm((tt-3.6)/.5);armR.a.rotation.x=lerp(0,-1.25,k);armR.k.rotation.x=lerp(-.25,-.9,k);armL.a.rotation.x=lerp(0,-.7,sm((tt-3.4)/.5));armL.k.rotation.x=-.9;pel.rotation.x=lerp(0,.12,k);}
- // 体は向こう（画面）向き：P.rotation.y=π で -z を向く
- // カメラ
  const pt=portrait();
  if(tt<2.6){camP.set(pt?2.9:2.6,1.7,pt?4.6:3.6);camL.set(-.6,.9,.8);}
  else if(tt<4.6){const k=sm((tt-2.6)/2);camP.set(lerp(pt?2.9:2.6,.75,k),lerp(1.7,1.55,k),lerp(pt?4.6:3.6,1.75,k));camL.set(lerp(-.6,0,k),lerp(.9,1.15,k),lerp(.8,-.2,k));}
  else{const k=sm((tt-4.6)/2.2);const d=pt?.5:.42;camP.set(lerp(.75,0,k),lerp(1.55,SCR_C.y,k),lerp(1.75,SCR_C.z+d,Math.pow(k,.8)));camL.set(lerp(0,SCR_C.x,k),lerp(1.15,SCR_C.y,k),lerp(-.2,SCR_C.z,k));}
  P.visible=!(tt>5.4);
  CAM.position.copy(camP);CAM.lookAt(camL);
- // 字幕
  $('mvCap').textContent=tt<1.2?'':tt<3.4?t('mv1'):tt<5.6?t('mv2'):'';
  if(tt>=5.7&&!mvEv.ti){mvEv.ti=1;big(t('bigTitle'),'cyan');SFX.whoosh();}
- $('fade').style.opacity=clamp((tt-6.5)/.6,0,1);
- // 画面の中のチャートも動かす
+ fadeA=clamp((tt-6.5)/.6,0,1);fadeTo=null;
  calmPrice(dt);chStep(dt);
  if(tt>=MV_END)endMV();}
 function endMV(){if(mode!=='mv')return;$('skipBtn').hidden=true;$('mvCap').textContent='';big('');startPlay();}
 $('skipBtn').onclick=()=>{if(mode==='mv'){SFX.click();endMV();}};
+
+// --- 小窓の棒人間 ---
+function seat(){P.visible=true;P.position.set(0,0,.66);P.rotation.set(0,Math.PI,0);pel.position.set(0,.55,0);pel.rotation.set(0,0,0);for(const L of [legL,legR]){L.a.rotation.set(-1.5,0,0);L.k.rotation.set(1.5,0,0);}}
+const _sc=new THREE.Color(),_red=new THREE.Color(0xff2a2a);
+function pipStep(dt){const ph=G.ph==='pvend'?'lc':G.ph;
+ let tR={ax:-1,az:.05,kx:-.75},tL={ax:-1,az:-.05,kx:-.75},lean=.08,yy=.55+Math.sin(CLK*2)*.004,xx=0,rz=0,lc=SCR0,li=1.6;
+ if(ph==='drop'){const q=clamp(G.q||0,0,1),p=clamp(q*1.5,0,1);
+  tL={ax:lerp(-1,-2.7,p),az:lerp(-.05,-.6,p),kx:lerp(-.75,-1.9,p)};
+  if(HS.touch){const fx=clamp(HS.x/Math.max(1,W),0,1);tR={ax:-1.42,az:lerp(-.3,.42,fx),kx:-.12};}
+  else tR={ax:lerp(-1,-2.7,p),az:lerp(.05,.6,p),kx:lerp(-.75,-1.9,p)};
+  lean=.1+.28*p;xx=Math.sin(CLK*46)*.012*p;_sc.setHex(SCR0).lerp(_red,q);lc=_sc.getHex();li=1.4+.9*q;}
+ else if(ph==='hold'){tR={ax:-3.0,az:.35,kx:-.1};tL={ax:-3.0,az:-.35,kx:-.1};lean=-.1;yy=.55+.06*Math.sin(Math.min(1,G.pt*2.5)*Math.PI);lc=0x40ff80;li=2.0;}
+ else if(ph==='lc'){tR={ax:-.15,az:.12,kx:0};tL={ax:-.15,az:-.12,kx:0};lean=.85;rz=.25*sm((G.pt||0)-.6);lc=0xff2020;li=Math.sin(CLK*12)>0?1.8:.8;}
+ else if(ph==='cut'){tR={ax:-2.6,az:.9,kx:-2.3};tL={ax:-2.6,az:-.9,kx:-2.3};lean=-.25;lc=0x40ff80;li=2;}
+ const a=1-Math.exp(-dt*10);
+ for(const [A,tg] of [[armR,tR],[armL,tL]]){A.a.rotation.x=lerp(A.a.rotation.x,tg.ax,a);A.a.rotation.z=lerp(A.a.rotation.z,tg.az,a);A.k.rotation.x=lerp(A.k.rotation.x,tg.kx,a);}
+ pel.rotation.x=lerp(pel.rotation.x,lean,a);pel.rotation.z=lerp(pel.rotation.z,rz,a);pel.position.y=lerp(pel.position.y,yy,a);pel.position.x=xx;
+ _sc.setHex(lc);scrLight.color.lerp(_sc,a);scrLight.intensity=lerp(scrLight.intensity,li,a);}
 
 // --- 遊ぶ ---
 // k回目（0から）の下落：ふつうの落ちる時間 D 秒、止めるのに必要なこする量 Rq
 const dropD=k=>Math.max(1.5,3.6-.12*k);
 const dropR=k=>3.0+.4*k;
 const dropRange=k=>.55+.05*k;
+const LOT=1e6; // 100万通貨
 let NORM=400;
-function startPlay(){mode='play';mT=0;show(null);hudOn(true);chReset(150);
- $('fade').style.transition='opacity .5s';requestAnimationFrame(()=>{$('fade').style.opacity=0;setTimeout(()=>$('fade').style.transition='',600);});
- G={n:0,ph:'calm',pt:0,calmT:1.6,t0:performance.now(),ticket:takeTicket(),rub:0,lastRubSnd:0,cutDX:0,res:null};
- NORM=clamp(Math.min(W,Hh)*.95,320,620);cap('');big('');handRest();HS.x=HS.tx;HS.y=HS.ty;
- $('hudCnt').textContent='0';showBest();posReset();}
+function startPlay(){mode='play';mT=0;show(null);hudOn(true);chReset(150);fadeTo=0;
+ G={n:0,ph:'calm',pt:0,calmT:1.6,ticket:takeTicket(),rub:0,rubPrev:0,rubTot:0,rs:0,lastRubSnd:-9,cutDX:0,res:null,entry:CH.p+.35,maxPL:0,mg:310,hbN:0,plS:'',mgS:-1,capT:0};
+ NORM=clamp(Math.min(W,Hh)*.95,320,620);cap('');big('');handRest();HS.x=HS.tx;HS.y=HS.ty;HS.touch=0;
+ $('hudCnt').textContent='0';showBest();posReset();seat();$('ticker').hidden=true;TK.hideAt=null;scrLight.color.setHex(SCR0);scrLight.intensity=1.6;}
 function calmPrice(dt){CH.p+= (Math.random()-.4)*.035*dt*10*.3+.02*dt;}
-function startDrop(){const k=G.n;G.ph='drop';G.pt=0;G.q=0;G.rub=0;G.capT=0;G.P0=CH.p;G.Rg=dropRange(k);G.D=dropD(k);G.Rq=dropR(k);CH.lossP=G.P0-G.Rg;CH.bar={y:yOf(CH.p-G.Rg*.35),k:0,ph:0,wob:1,broken:false};
- cap(G.n===0?t('drop'):t('drop2')[(G.n-1)%t('drop2').length],true);SFX.alarm();flashA=.35;}
+function startDrop(){const k=G.n;G.ph='drop';G.pt=0;G.q=0;G.rub=0;G.rubPrev=0;G.capT=0;G.hbN=CLK+.3;G.P0=CH.p;G.Rg=dropRange(k);G.D=dropD(k);G.Rq=dropR(k);CH.lossP=G.P0-G.Rg;CH.bar={y:yOf(CH.p-G.Rg*.35),k:0,ph:0,wob:1,broken:false};
+ cap(G.n===0?t('drop'):t('drop2')[(G.n-1)%t('drop2').length],true);SFX.alarm();flashA=.35;news(false);}
 function playUpdate(dt,now){G.pt+=dt;
  if(G.ph==='calm'){calmPrice(dt);if(G.pt>=G.calmT)startDrop();}
  else if(G.ph==='drop'){const f=clamp(G.rub/G.Rq,0,1);G.q+=dt/G.D*(1-.55*f)*(.75+.5*G.q);const q=clamp(G.q,0,1);CH.p=G.P0-G.Rg*Math.pow(q,1.25)+(Math.random()-.5)*.012;
   if(CH.bar){CH.bar.k=lerp(CH.bar.k,f,.35);CH.bar.ph+=dt*8;CH.bar.wob=HS.touch?1:.4;const lo=yOf(CH.lossP)-6,hi=yOf(CH.p)+14;if(HS.touch)CH.bar.y=clamp(HS.y,Math.min(hi,lo),lo);else CH.bar.y=clamp(CH.bar.y,Math.min(hi,lo),lo);}
-  shakeA=Math.max(shakeA,.6*q);
+  shakeA=Math.max(shakeA,.6*q);CH.danger=lerp(CH.danger,q,1-Math.exp(-dt*6));
+  if(CLK>=G.hbN){SFX.heart(q);CH.pulse=1;G.hbN=CLK+lerp(.78,.26,q);}
+  if(HS.touch&&G.rs>1.2){G.spk=(G.spk||0)+G.rs*dt*12;while(G.spk>=1){G.spk--;const dir=HS.vx>0?-1:1;CH.sparks.push({x:HS.x+(Math.random()-.5)*8,y:HS.y+(Math.random()-.5)*6,vx:dir*(80+Math.random()*260)+(Math.random()-.5)*120,vy:-60-Math.random()*240,life:.25+Math.random()*.35,l0:.6,c:Math.random()<.5?'#ffb347':'#ffe08a'});}}
   if(f>=1){holdDrop();}else if(G.q>=1){lossCut();}
-  if(G.pt>1.2&&G.pt-G.capT>1.1){G.capT=G.pt;cap(t('drop2')[(Math.random()*6)|0],true);}}
+  else if(G.pt>1.2&&G.pt-G.capT>1.1){G.capT=G.pt;cap(t('drop2')[(Math.random()*6)|0],true);}}
  else if(G.ph==='hold'){const k=clamp(G.pt/1.0,0,1);CH.p=lerp(G.hp,G.ht,1-Math.pow(1-k,2.5))+(Math.random()-.5)*.01;if(CH.bar)CH.bar.k=lerp(CH.bar.k,0,dt*1.5);
-  if(G.pt>=1.0){G.ph='calm';G.pt=0;G.calmT=.8+Math.random()*.6;CH.lossP=null;CH.bar=null;cap('');}}
- else if(G.ph==='lc'){CH.p-=dt*(G.Rg*1.6+G.pt*G.Rg*2);shakeA=Math.max(shakeA,1.2*(1-G.pt/1.8));if(G.pt>=2.0)showResult('lc');}
+  if(G.pt>=.7&&!G.bc){G.bc=1;big('');}
+  if(G.pt>=1.0){G.ph='calm';G.pt=0;G.calmT=.8+Math.random()*.6;CH.lossP=null;CH.bar=null;TK.hideAt=CLK+1.4;
+   if(G.rubTot>45&&!G.hot){G.hot=1;cap(t('hot'),true);}else cap('');}}
+ else if(G.ph==='lc'){CH.p-=dt*(G.Rg*1.6+G.pt*G.Rg*2);shakeA=Math.max(shakeA,1.2*(1-G.pt/1.8));CH.danger=1;if(Math.sin(CLK*10)>.6)CH.pulse=1;if(G.pt>=2.0)showResult('lc');}
  else if(G.ph==='cut'){if(G.pt>=1.8)showResult('cut');}
+ if(G.ph!=='drop'&&G.ph!=='lc'&&G.ph!=='pvend')CH.danger*=Math.pow(.08,dt);
+ // こする速さ
+ const inst=(G.rub-G.rubPrev)/Math.max(dt,1e-3);G.rubPrev=G.rub;G.rs=lerp(G.rs||0,G.ph==='drop'?inst:0,1-Math.exp(-dt*8));
  chStep(dt);
- const p=CH.p;$('hudPrice').textContent=p.toFixed(3);$('hudPrice').className=CH.cur.c>=CH.cur.o?'up':'dn';}
-function holdDrop(){if(CH.bar)CH.bar.k=1;G.n++;G.ph='hold';G.pt=0;G.hp=CH.p;G.ht=CH.p+G.Rg*(.75+Math.random()*.45);$('hudCnt').textContent=G.n;cap('');big(t('hold')+'<small>+1</small>','grn');setTimeout(()=>{if(mode==='play'&&G.ph!=='drop')big('');},700);SFX.hold();
+ // 含み損益・証拠金維持率
+ if(G.ph!=='lc'&&G.ph!=='pvend'&&G.ph!=='cut')G.plNow=(CH.p-G.entry)*LOT;const pl=G.plNow||0;G.maxPL=Math.min(G.maxPL,pl);
+ let mg;if(G.ph==='drop')mg=50+250*clamp((CH.p-CH.lossP)/Math.max(1e-6,G.P0-CH.lossP),0,1);else if(G.ph==='lc'||G.ph==='pvend')mg=Math.max(0,50-(CH.lossP-CH.p)/G.Rg*120);else mg=lerp(G.mg,310+Math.sin(CLK*.7)*8,1-Math.exp(-dt*3));G.mg=mg;
+ const s=yen(pl);if(s!==G.plS){G.plS=s;const e=$('posPL');if(e){e.textContent=s;e.className='pl '+(pl<0?'dn':'up');}}
+ const mi=Math.round(mg),me=$('hudMg');if(mi!==G.mgS){G.mgS=mi;me.textContent=t('mg')+' '+mi+'%';}
+ const cls=mg<100?(Math.sin(CLK*14)>0?'bad':'bad dim'):mg<200?'warn':'';if(me.className!==cls)me.className=cls;
+ $('hudPrice').textContent=CH.p.toFixed(3);$('hudPrice').className=CH.cur.c>=CH.cur.o?'up':'dn';}
+function holdDrop(){if(CH.bar)CH.bar.k=1;G.n++;G.ph='hold';G.pt=0;G.bc=0;G.hp=CH.p;G.ht=CH.p+G.Rg*(.75+Math.random()*.45);$('hudCnt').textContent=G.n;cap('');big(t('hold')+'<small>+1</small>','grn');SFX.hold();news(true);
  if(CH.bar){const y=CH.bar.y;for(let i=0;i<16;i++)CH.shards.push({x:Math.random()*W,y,vx:(Math.random()-.5)*60,vy:-120-Math.random()*200,r:0,w:(Math.random()-.5)*4,a:.8,s:6+Math.random()*8});}}
 function lossCut(){G.ph='lc';G.pt=0;SFX.crash();flashA=.8;cap('');big(t('lc')+'<small>'+t('lcSub')+'</small>','red');
  if(CH.bar){CH.bar.broken=true;const y=CH.bar.y;for(let i=0;i<46;i++)CH.shards.push({x:Math.random()*W,y,vx:(Math.random()-.5)*500,vy:-80-Math.random()*380,r:0,w:(Math.random()-.5)*14,a:1.2,s:5+Math.random()*12});}
  G.res={n:G.n,kind:'lc'};submit();}
-function doCut(){if(mode!=='play'||G.ph==='lc'||G.ph==='cut')return;G.ph='cut';G.pt=0;SFX.cut();cap('');big(t('cutBig')+'<small>'+t('cutSub')+'</small>','grn');CH.lossP=null;CH.bar=null;posReset();$('cutBtn').hidden=true;
+function doCut(){if(mode!=='play'||G.ph==='lc'||G.ph==='cut'||G.ph==='pvend')return;G.ph='cut';G.pt=0;SFX.cut();cap('');big(t('cutBig')+'<small>'+t('cutSub')+'</small>','grn');CH.lossP=null;CH.bar=null;CH.danger=0;posReset();$('cutBtn').hidden=true;$('ticker').hidden=true;
  G.res={n:G.n,kind:'cut'};sendCut();submit();}
 
 // --- こする ---
 let ptr=null;
 function inGame(){return mode==='play'&&(G.ph==='calm'||G.ph==='drop'||G.ph==='hold');}
 const EDGE=18;
-addEventListener('pointerdown',e=>{if(!inGame())return;if(e.target.closest('button'))return;e.preventDefault();ptr={id:e.pointerId,x:e.clientX,y:e.clientY};HS.touch=1;HS.tx=e.clientX;HS.ty=e.clientY;},{passive:false});
-addEventListener('pointermove',e=>{if(!ptr||e.pointerId!==ptr.id)return;e.preventDefault();const dx=e.clientX-ptr.x;ptr.x=e.clientX;ptr.y=e.clientY;HS.tx=e.clientX;HS.ty=e.clientY;HS.vx=dx/Math.max(1/120,1/60)*.5+HS.vx*.5;
- if(mode==='play'&&G.ph==='drop'&&e.clientX>EDGE&&e.clientX<W-EDGE){const d=Math.min(Math.abs(dx),NORM*.5)/NORM;G.rub+=d;const now=performance.now();if(now-G.lastRubSnd>55&&Math.abs(dx)>3){G.lastRubSnd=now;SFX.rub(clamp(G.rub/G.Rq,0,1));}}},{passive:false});
+addEventListener('pointerdown',e=>{if(!inGame())return;if(e.target.closest&&e.target.closest('button'))return;e.preventDefault();ptr={id:e.pointerId,x:e.clientX,y:e.clientY};HS.touch=1;HS.tx=e.clientX;HS.ty=e.clientY;},{passive:false});
+addEventListener('pointermove',e=>{if(!ptr||e.pointerId!==ptr.id)return;e.preventDefault();const dx=e.clientX-ptr.x;ptr.x=e.clientX;ptr.y=e.clientY;HS.tx=e.clientX;HS.ty=e.clientY;HS.vx=dx*30*.5+HS.vx*.5;
+ if(mode==='play'&&G.ph==='drop'&&e.clientX>EDGE&&e.clientX<W-EDGE){const d=Math.min(Math.abs(dx),NORM*.5)/NORM;G.rub+=d;G.rubTot+=d;if(CLK-G.lastRubSnd>.055&&Math.abs(dx)>3){G.lastRubSnd=CLK;SFX.rub(clamp(G.rub/G.Rq,0,1));}}},{passive:false});
 function up(e){if(!ptr||e.pointerId!==ptr.id)return;ptr=null;HS.touch=0;handRest();}
 addEventListener('pointerup',up);addEventListener('pointercancel',up);
 addEventListener('touchmove',e=>{if(mode==='play')e.preventDefault();},{passive:false});
@@ -453,7 +510,7 @@ addEventListener('touchmove',e=>{if(mode==='play')e.preventDefault();},{passive:
 // --- 隠し：ポジションの帯を横にずらすと「損切り」 ---
 const posB=$('pos');let posDrag=null;
 function posReset(){G.cutDX=0;posB.style.transform='translateX(-50%)';cutVis();}
-function cutVis(){const c=$('cutBtn'),k=clamp((Math.abs(G.cutDX)-20)/60,0,1);c.style.opacity=k;c.style.pointerEvents=k>.6?'auto':'none';}
+function cutVis(){const c=$('cutBtn'),k=clamp((Math.abs(G.cutDX||0)-20)/60,0,1);c.style.opacity=k;c.style.pointerEvents=k>.6?'auto':'none';}
 posB.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();posDrag={x:e.clientX,dx:G.cutDX||0};try{posB.setPointerCapture(e.pointerId);}catch(_){}});
 posB.addEventListener('pointermove',e=>{if(!posDrag)return;e.stopPropagation();const lim=Math.min(W*.42,190);G.cutDX=clamp(posDrag.dx+e.clientX-posDrag.x,-lim,lim);posB.style.transform='translateX(calc(-50% + '+G.cutDX+'px))';cutVis();});
 posB.addEventListener('pointerup',()=>{posDrag=null;});posB.addEventListener('pointercancel',()=>{posDrag=null;});
@@ -463,13 +520,14 @@ $('cutBtn').onclick=e=>{e.stopPropagation();doCut();};
 let resKind='lc';
 function showResult(kind){mode='result';mT=0;resKind=kind;show('result');hudOn(false);big('');cap('');const r=G.res||{n:0};
  if(r.n>best){best=r.n;ls.set('yb_best',best);r.newBest=true;}
+ $('rLoss').textContent=G.maxPL<0?t('maxLoss')+' '+yen(G.maxPL):'';
  if(kind==='cut'){$('rHead').textContent=t('rHeadCut');$('rHead').style.color='#1aa34a';$('rCnt').innerHTML=r.n+'<small>'+t('sec')+'</small>';$('rGrade').innerHTML='<span style="font-size:13px;color:var(--sub)">'+t('ttl')+'</span><br>「'+esc(t('gradeCut'))+'」';
   $('rNote').innerHTML=t('cutNote',{n:r.n})+(cutN?'<br>'+esc(t('cutCount',{n:cutN.toLocaleString()})):'');}
  else{$('rHead').textContent=t('rHead');$('rHead').style.color='';$('rCnt').innerHTML=r.n+'<small>'+t('sec')+'</small>';$('rGrade').innerHTML='<span style="font-size:13px;color:var(--sub)">'+t('ttl')+'</span><br>「'+esc(grade(r.n))+'」';
   $('rNote').innerHTML=(r.newBest&&r.n>0?'<b style="color:#1aa34a">'+t('newbest')+'</b>':'')+(r.topP?'<br>'+esc(t('top',{p:r.topP})):'');}
  $('sendMsg').textContent=sendState.msg||'';$('sendMsg').className='note '+(sendState.cls||'');}
 function refreshResult(){if(mode==='result')showResult(resKind);}
-function postText(){const r=G.res||{n:0};return (resKind==='cut'?t('postCut',{n:r.n}):t('post',{n:r.n,g:grade(r.n)}))+'\n'+t('tags');}
+function postText(){const r=G.res||{n:0};return (resKind==='cut'?t('postCut',{n:r.n}):t('post',{n:r.n,g:grade(r.n),m:yen(Math.min(0,G.maxPL||0))}))+'\n'+t('tags');}
 $('xBtn').onclick=()=>{const u='https://x.com/intent/post?text='+encodeURIComponent(postText())+'&url='+encodeURIComponent(GAME_URL);const w=window.open(u,'_blank');if(!w)location.href=u;};
 
 // ===== ランキング（Firebase：ft-green の yubi の下。名前はなし、回数ごとの人数だけ） =====
@@ -529,16 +587,19 @@ $('rankBtn').onclick=()=>openRank('d');$('rRank').onclick=()=>openRank('d',true)
 $('rankBack').onclick=()=>{if(rankFrom){show('result');}else showTitle();};
 
 // ===== まわす =====
-let last=performance.now();
-function loop(now){requestAnimationFrame(loop);const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;mT+=dt;
+function frame(dt,now){CLK+=dt;mT+=dt;
  if(mode==='title'||mode==='result'){calmPrice(dt);chStep(dt);}
  else if(mode==='mv')mvUpdate(dt);
  else if(mode==='play')playUpdate(dt,now);
- // チャートを描く
+ popStep();tickStep();
+ if(fadeTo!=null){fadeA=lerp(fadeA,fadeTo,1-Math.exp(-dt*7));if(Math.abs(fadeA-fadeTo)<.01){fadeA=fadeTo;fadeTo=null;}}
+ $('fade').style.opacity=fadeA.toFixed(3);
  CX.setTransform(DPR,0,0,DPR,0,0);const sh=shakeA>0?shakeA*6:0;shakeA*=Math.pow(.05,dt);if(shakeA<.01)shakeA=0;CX.save();if(sh)CX.translate((Math.random()-.5)*sh,(Math.random()-.5)*sh);drawChart(CX,W,Hh,false);CX.restore();
  flashA*=Math.pow(.02,dt);$('flash').style.opacity=flashA.toFixed(3);
  if(mode==='mv'){drawChart(MX,MINI.width,MINI.height,true);mtex.needsUpdate=true;R.render(S,CAM);}
- else{handStep(dt,now);HAND.visible=(mode==='play');R.render(FS,FC);}}
+ else{handStep(dt,now);HAND.visible=(mode==='play');R.render(FS,FC);if(mode==='play'){pipStep(dt);R2.render(S,CAM2);}}}
+let last=performance.now();
+function loop(now){requestAnimationFrame(loop);const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;frame(dt,now);}
 
 // ===== はじめ =====
 applyLang();
@@ -546,8 +607,9 @@ if(OGP||ICON){mode='shot';show(null);chReset(150);for(let i=0;i<46;i++){const dn
  CX.setTransform(DPR,0,0,DPR,0,0);drawChart(CX,W,Hh,false);HS.x=W*(OGP?.62:.6);HS.y=CH.bar.y;HS.touch=1;HS.tx=HS.x;HS.ty=HS.y;HS.vx=900;G={ph:'drop'};handStep(.5,0);HAND.visible=true;tipGlow.material.opacity=.5;R.render(FS,FC);
  if(OGP){$('ogpT').hidden=false;$('ogpT').innerHTML='<b>指バリア</b><i>FINGER BARRIER</i><s>こすって、下落を止めろ。</s>';}
  window.__shotReady=true;}
-else{showTitle();requestAnimationFrame(loop);}
-window.__YB={get mode(){return mode},get G(){return G},get best(){return best},CH,startMV,endMV,doCut};
+else{showTitle();if(!MAN)requestAnimationFrame(loop);}
+window.__YB={get mode(){return mode},get G(){return G},get best(){return best},CH,startMV,endMV,doCut,ev:EV,
+ tick(dt){frame(dt,(CLK+dt)*1000);},pvMV(tt){startMV();mT=tt;mvEv.ti=1;},setN(n){G.n=n;$('hudCnt').textContent=n;}};
 </script>
 </body>
 </html>
