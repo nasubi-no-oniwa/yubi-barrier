@@ -17,7 +17,13 @@
 <meta property="og:description" content="下落が来たら、チャートを指でこすってバリアを張れ。何回耐えられるか。">
 <meta property="og:image" content="https://nasubi-no-oniwa.github.io/yubi-barrier/ogp.png">
 <meta property="og:url" content="https://nasubi-no-oniwa.github.io/yubi-barrier/">
+<meta property="og:type" content="website">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="指バリア">
+<meta name="twitter:description" content="下落が来たら、チャートを指でこすってバリアを張れ。何回耐えられるか。">
+<meta name="twitter:image" content="https://nasubi-no-oniwa.github.io/yubi-barrier/ogp.png">
 <link rel="icon" href="icon.png">
 <style>
 :root{--bg:#0d131f;--ink:#1d1d1d;--sub:#666;--accent:#0f9fb8;--up:#22c55e;--dn:#ef4444;--bar:#5ef0ff;--card:#fbfcfe}
@@ -96,6 +102,12 @@ table.rank tr.take td.r{color:#1aa34a;font-size:12px}
 #ogpT b{display:block;font-size:120px;line-height:1}
 #ogpT i{display:block;font-style:normal;font-size:30px;letter-spacing:.3em;margin-top:8px;color:var(--bar)}
 #ogpT s{display:block;text-decoration:none;font-size:34px;margin-top:22px;color:#fff}
+#shareBg{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(9,13,22,.94) 0%,rgba(9,13,22,.82) 46%,rgba(9,13,22,0) 74%)}
+#shareT{position:fixed;left:64px;top:46px;z-index:20;pointer-events:none;color:#fff;font-weight:900;text-shadow:0 4px 0 #0008}
+#shareT .lg{font-size:30px;letter-spacing:.04em}#shareT .lg span{font-size:18px;color:var(--bar);letter-spacing:.25em;margin-left:12px}
+#shareT .num{display:flex;align-items:baseline;gap:10px;margin-top:4px}#shareT .num b{font-size:220px;line-height:.95;color:#fff;text-shadow:0 6px 0 #0009,0 0 26px #5ef0ff,0 0 50px #5ef0ff88}#shareT .num span{font-size:66px}
+#shareT .word{font-size:150px;line-height:1.05;margin-top:30px}#shareT .word.cut{color:#5ef0ff;text-shadow:0 6px 0 #0009,0 0 26px #5ef0ff}#shareT .word.take{color:#5be08a;text-shadow:0 6px 0 #0009,0 0 26px #22c55e}
+#shareT .ttl{font-size:46px;margin-top:6px}#shareT .en{font-size:24px;color:#cfe3ff;margin-top:12px;letter-spacing:.03em}
 </style>
 </head>
 <body>
@@ -156,7 +168,7 @@ const $=id=>document.getElementById(id);
 const ls={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const GAME_URL='https://nasubi-no-oniwa.github.io/yubi-barrier/';
 const QS=new URLSearchParams(location.search);
-const OGP=QS.has('ogp'),ICON=QS.has('icon');
+const OGP=QS.has('ogp'),ICON=QS.has('icon'),SHARE=QS.get('share');
 const PV=window.__YBPV||null; // 確認用（通信しない）
 const MAN=!!(PV&&PV.manual); // 宣伝動画用：1コマずつ進める
 
@@ -175,7 +187,7 @@ ja:{title:'指<em>バリア</em><small>FINGER BARRIER</small>',bigTitle:'指バ�
  rHead:'結果',rHeadCut:'損切りした',rHeadTake:'利確した',fixedP:'確定した利益',fixedL:'確定した損失',sec:'回',ttl:'称号',newbest:'自己ベスト更新！',top:'上位 {p}％',maxLoss:'最大含み損',
  grades:['即退場','養分','口座開設したての人','含み損と暮らす人','ナンピン職人','指バリア使い','チャートの守護神','為替介入','中央銀行','相場の神','指バリアの開祖'],gradeCut:'損切りできる人',gradeTake:'利確できる人',
  cutNote:'{n}回耐えたあと、自分で損切りした。<br>相場でいちばんむずかしいことをやった。',cutCount:'損切りできた人 {n}人',takeNote:'{n}回耐えたあと、プラスのうちに決済した。<br>欲張らずに降りるのも、むずかしい。',takeCount:'利確できた人 {n}人',
- post:'指バリアで{n}回、下落を止めた。最大含み損 {m}。称号「{g}」',postCut:'{n}回耐えたあと、損切りした（{m}）。称号「損切りできる人」',postTake:'{n}回耐えたあと、利確した（{m}）。称号「利確できる人」',tags:'#指バリア',
+ post:'指バリアで{n}回耐えた。\n称号「{g}」 最大含み損 {m}',postCut:'指バリアで{n}回耐えて、損切りした（{m}）。\n称号「損切りできる人」',postTake:'指バリアで{n}回耐えて、利確した（{m}）。\n称号「利確できる人」',tags:'#指バリア',
  sending:'送信中…',sent:'記録しました',notbetter:'前の記録の方が多いです',offline:'はじめたときに通信が間に合わなかったので、この回は記録されません',senderr:'送れませんでした',
  again:'もう一回',xpost:'Xに投稿',toTitle:'タイトルへ',today:'今日',alltime:'全期間',rkNote:'下落に耐えた回数ごとの人数',loading:'読み込み中…',empty:'まだ誰もいません',rankerr:'ランキングを読み込めませんでした',cutRow:'損切りした人',takeRow:'利確した人',people:'{n}人',you:'あなた',back:'もどる'},
 en:{title:'FINGER <em>BARRIER</em><small>指バリア</small>',bigTitle:'FINGER BARRIER',
@@ -191,7 +203,7 @@ en:{title:'FINGER <em>BARRIER</em><small>指バリア</small>',bigTitle:'FINGER 
  rHead:'Result',rHeadCut:'You cut your losses',rHeadTake:'You took profit',fixedP:'Locked-in profit',fixedL:'Locked-in loss',sec:'',ttl:'Title',newbest:'New personal best!',top:'Top {p}%',maxLoss:'Max unrealized loss',
  grades:['Instantly Out','Exit Liquidity','Fresh Account','Living in the Red','Averaging-Down Artisan','Finger Barrier User','Chart Guardian','Market Intervention','Central Bank','God of the Market','Founder of the Finger Barrier'],gradeCut:'Can Actually Cut Losses',gradeTake:'Can Actually Take Profit',
  cutNote:'After holding {n} drops, you cut your losses yourself.<br>The hardest thing in trading.',cutCount:'{n} people cut their losses',takeNote:'After holding {n} drops, you closed while still in the green.<br>Walking away is hard too.',takeCount:'{n} people took profit',
- post:'I held {n} market drops with a finger barrier. Max unrealized loss {m}. Title: {g}',postCut:'Held {n} drops, then cut my losses ({m}). Title: Can Actually Cut Losses',postTake:'Held {n} drops, then took profit ({m}). Title: Can Actually Take Profit',tags:'#指バリア',
+ post:'Held {n} drops with a finger barrier.\nTitle: {g} / Max unrealized loss {m}',postCut:'Held {n} drops with a finger barrier, then cut my losses ({m}).\nTitle: Can Actually Cut Losses',postTake:'Held {n} drops with a finger barrier, then took profit ({m}).\nTitle: Can Actually Take Profit',tags:'#指バリア',
  sending:'Sending…',sent:'Recorded',notbetter:'Your earlier record is higher',offline:'The connection was too slow when you started, so this run won\'t be recorded',senderr:'Could not send',
  again:'Again',xpost:'Post to X',toTitle:'Title',today:'Today',alltime:'All time',rkNote:'Players by drops held',loading:'Loading…',empty:'No one yet',rankerr:'Could not load the ranking',cutRow:'Cut their losses',takeRow:'Took profit',people:'{n}',you:'you',back:'Back'},
 zh:{title:'手指<em>結界</em><small>FINGER BARRIER・指バリア</small>',bigTitle:'手指結界',
@@ -207,7 +219,7 @@ zh:{title:'手指<em>結界</em><small>FINGER BARRIER・指バリア</small>',bi
  rHead:'結果',rHeadCut:'停損了',rHeadTake:'獲利了結了',fixedP:'確定的獲利',fixedL:'確定的虧損',sec:'次',ttl:'稱號',newbest:'刷新個人最佳！',top:'前 {p}％',maxLoss:'最大浮虧',
  grades:['秒退場','韭菜','剛開戶的人','與浮虧共存','攤平職人','手指結界使','K線守護神','匯率干預','央行','行情之神','手指結界始祖'],gradeCut:'懂得停損的人',gradeTake:'懂得獲利了結的人',
  cutNote:'撐了{n}次之後，自己停損了。<br>做到了交易裡最難的事。',cutCount:'停損的人 {n}人',takeNote:'撐了{n}次之後，趁還有賺的時候平倉。<br>不貪心地下車，也很難。',takeCount:'獲利了結的人 {n}人',
- post:'用手指結界擋住了{n}次下跌。最大浮虧 {m}。稱號「{g}」',postCut:'撐了{n}次之後停損了（{m}）。稱號「懂得停損的人」',postTake:'撐了{n}次之後獲利了結（{m}）。稱號「懂得獲利了結的人」',tags:'#指バリア',
+ post:'用手指結界撐了{n}次。\n稱號「{g}」 最大浮虧 {m}',postCut:'用手指結界撐了{n}次，然後停損了（{m}）。\n稱號「懂得停損的人」',postTake:'用手指結界撐了{n}次，然後獲利了結（{m}）。\n稱號「懂得獲利了結的人」',tags:'#指バリア',
  sending:'傳送中…',sent:'已記錄',notbetter:'之前的紀錄比較多',offline:'開始時連線來不及，這次不列入紀錄',senderr:'無法傳送',
  again:'再一次',xpost:'發到 X',toTitle:'回標題',today:'今天',alltime:'全部',rkNote:'依撐住次數統計人數',loading:'讀取中…',empty:'還沒有人',rankerr:'無法讀取排行榜',cutRow:'停損的人',takeRow:'獲利了結的人',people:'{n}人',you:'你',back:'返回'},
 ko:{title:'손가락 <em>배리어</em><small>FINGER BARRIER・指バリア</small>',bigTitle:'손가락 배리어',
@@ -223,7 +235,7 @@ ko:{title:'손가락 <em>배리어</em><small>FINGER BARRIER・指バリア</sma
  rHead:'결과',rHeadCut:'손절했다',rHeadTake:'익절했다',fixedP:'확정 이익',fixedL:'확정 손실',sec:'번',ttl:'칭호',newbest:'최고 기록 갱신!',top:'상위 {p}%',maxLoss:'최대 평가손',
  grades:['즉시 퇴장','개미','막 계좌 튼 사람','평가손과 사는 사람','물타기 장인','손가락 배리어 사용자','차트의 수호신','환율 개입','중앙은행','시장의 신','손가락 배리어의 창시자'],gradeCut:'손절할 줄 아는 사람',gradeTake:'익절할 줄 아는 사람',
  cutNote:'{n}번 버틴 뒤, 스스로 손절했다.<br>트레이딩에서 가장 어려운 일을 해냈다.',cutCount:'손절한 사람 {n}명',takeNote:'{n}번 버틴 뒤, 플러스일 때 청산했다.<br>욕심 없이 내리는 것도 어렵다.',takeCount:'익절한 사람 {n}명',
- post:'손가락 배리어로 하락을 {n}번 막았다. 최대 평가손 {m}. 칭호 「{g}」',postCut:'{n}번 버틴 뒤 손절했다 ({m}). 칭호 「손절할 줄 아는 사람」',postTake:'{n}번 버틴 뒤 익절했다 ({m}). 칭호 「익절할 줄 아는 사람」',tags:'#指バリア',
+ post:'손가락 배리어로 {n}번 버텼다.\n칭호 「{g}」 최대 평가손 {m}',postCut:'손가락 배리어로 {n}번 버틴 뒤 손절했다 ({m}).\n칭호 「손절할 줄 아는 사람」',postTake:'손가락 배리어로 {n}번 버틴 뒤 익절했다 ({m}).\n칭호 「익절할 줄 아는 사람」',tags:'#指バリア',
  sending:'전송 중…',sent:'기록했어요',notbetter:'이전 기록이 더 많아요',offline:'시작할 때 통신이 늦어서 이번 기록은 남지 않아요',senderr:'보내지 못했어요',
  again:'한 번 더',xpost:'X에 올리기',toTitle:'타이틀로',today:'오늘',alltime:'전체',rkNote:'버틴 횟수별 인원',loading:'불러오는 중…',empty:'아직 아무도 없어요',rankerr:'랭킹을 불러오지 못했어요',cutRow:'손절한 사람',takeRow:'익절한 사람',people:'{n}명',you:'나',back:'돌아가기'}
 };
@@ -304,7 +316,7 @@ const lossLbl=()=>({ja:'ロスカット',en:'MARGIN CALL',zh:'強制平倉',ko:'
 
 // ===== 3D =====
 const cv=$('c');
-const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true,preserveDrawingBuffer:OGP||ICON||!!PV});
+const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true,preserveDrawingBuffer:OGP||ICON||!!SHARE||!!PV});
 R.setPixelRatio(Math.min(window.devicePixelRatio||1,2));R.outputColorSpace=THREE.SRGBColorSpace;R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;R.setClearColor(0x000000,0);
 const M=(c,r=.5,o={})=>new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:0,...o});
 const caps=(r,l,m)=>{const g=new THREE.Mesh(new THREE.CapsuleGeometry(r,l,6,16),m);g.castShadow=true;return g;};
@@ -534,7 +546,9 @@ function showResult(kind){mode='result';mT=0;resKind=kind;show('result');hudOn(f
  $('sendMsg').textContent=sendState.msg||'';$('sendMsg').className='note '+(sendState.cls||'');}
 function refreshResult(){if(mode==='result')showResult(resKind);}
 function postText(){const r=G.res||{n:0};return (resKind==='cut'?t('postCut',{n:r.n,m:yen(G.fixPL||0)}):resKind==='take'?t('postTake',{n:r.n,m:yen(G.fixPL||0)}):t('post',{n:r.n,g:grade(r.n),m:yen(Math.min(0,G.maxPL||0))}))+'\n'+t('tags');}
-$('xBtn').onclick=()=>{const u='https://x.com/intent/post?text='+encodeURIComponent(postText())+'&url='+encodeURIComponent(GAME_URL);const w=window.open(u,'_blank');if(!w)location.href=u;};
+const SHARE_MAX=80;
+function shareURL(){const r=G.res||{n:0};if(resKind==='cut')return GAME_URL+'s/cut.html';if(resKind==='take')return GAME_URL+'s/take.html';return r.n<=SHARE_MAX?GAME_URL+'s/'+r.n+'.html':GAME_URL+'?v=1107';}
+$('xBtn').onclick=()=>{const u='https://x.com/intent/post?text='+encodeURIComponent(postText())+'&url='+encodeURIComponent(shareURL());const w=window.open(u,'_blank');if(!w)location.href=u;};
 
 // ===== ランキング（Firebase：ft-green の yubi の下。名前はなし、回数ごとの人数だけ） =====
 const FB={apiKey:'AIzaSyCfCUAY7vhCFVF58tGOQzLCQsfPhp-Qi1A',databaseURL:'https://ft-green-default-rtdb.asia-southeast1.firebasedatabase.app'};
@@ -545,7 +559,7 @@ async function fbAuth(){if(PV)throw new Error('pv');
   if(r.ok){const j=await r.json();a={uid:j.user_id,token:j.id_token,refresh:j.refresh_token,exp:Date.now()+(+j.expires_in)*1000};ls.set('yb_auth',a);return a;}}catch(_){}}
  const r=await fetchR('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='+FB.apiKey,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({returnSecureToken:true})});
  if(!r.ok)throw new Error('auth');const j=await r.json();a={uid:j.localId,token:j.idToken,refresh:j.refreshToken,exp:Date.now()+(+j.expiresIn)*1000};ls.set('yb_auth',a);return a;}
-if(!PV&&!OGP&&!ICON)fbAuth().catch(()=>{});
+if(!PV&&!OGP&&!ICON&&!SHARE)fbAuth().catch(()=>{});
 const DB=p=>FB.databaseURL+'/yubi/'+p;
 const QA=a=>'.json?auth='+encodeURIComponent(a.token);
 const PUT=(url,body)=>fetchR(url,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
@@ -609,9 +623,15 @@ function loop(now){requestAnimationFrame(loop);const dt=Math.min(.05,Math.max(0,
 
 // ===== はじめ =====
 applyLang();
-if(OGP||ICON){mode='shot';show(null);chReset(150);for(let i=0;i<46;i++){const dn=i>20;for(let j=0;j<6;j++){CH.p+=(Math.random()-(dn?.75:.35))*.03;chStep(CT/6);}}CH.vmax=CH.p+.55;CH.vmin=CH.p-.75;CH.lossP=CH.p-.6;CH.bar={y:yOf(CH.p-.25),k:.85,ph:1,wob:1,broken:false};
- CX.setTransform(DPR,0,0,DPR,0,0);drawChart(CX,W,Hh,false);HS.x=W*(OGP?.62:.6);HS.y=CH.bar.y;HS.touch=1;HS.tx=HS.x;HS.ty=HS.y;HS.vx=900;G={ph:'drop'};handStep(.5,0);HAND.visible=true;tipGlow.material.opacity=.5;R.render(FS,FC);
+if(OGP||ICON||SHARE){mode='shot';show(null);chReset(150);for(let i=0;i<46;i++){const dn=i>20;for(let j=0;j<6;j++){CH.p+=(Math.random()-(dn?.75:.35))*.03;chStep(CT/6);}}CH.vmax=CH.p+.55;CH.vmin=CH.p-.75;CH.lossP=CH.p-.6;CH.bar={y:yOf(CH.p-.25),k:.85,ph:1,wob:1,broken:false};
+ CX.setTransform(DPR,0,0,DPR,0,0);drawChart(CX,W,Hh,false);HS.x=W*(SHARE?.82:OGP?.62:.6);HS.y=CH.bar.y;HS.touch=1;HS.tx=HS.x;HS.ty=HS.y;HS.vx=900;G={ph:'drop'};handStep(.5,0);HAND.visible=true;tipGlow.material.opacity=.5;R.render(FS,FC);
  if(OGP){$('ogpT').hidden=false;$('ogpT').innerHTML='<b>指バリア</b><i>FINGER BARRIER</i><s>こすって、下落を止めろ。</s>';}
+ if(SHARE){const bg=document.createElement('div');bg.id='shareBg';CV.after(bg);const d=document.createElement('div');d.id='shareT';const n=Math.max(0,parseInt(QS.get('n')||'0',10)||0),gi=gradeI(n);
+  const lg='<div class="lg">指バリア<span>FINGER BARRIER</span></div>';
+  if(SHARE==='cut')d.innerHTML=lg+'<div class="word cut">損切り</div><div class="ttl">称号「損切りできる人」</div><div class="en">Can Actually Cut Losses</div>';
+  else if(SHARE==='take')d.innerHTML=lg+'<div class="word take">利確</div><div class="ttl">称号「利確できる人」</div><div class="en">Can Actually Take Profit</div>';
+  else d.innerHTML=lg+'<div class="num"><b>'+n+'</b><span>回耐えた</span></div><div class="ttl">称号「'+esc(TX.ja.grades[gi])+'」</div><div class="en">Held '+n+' drop'+(n===1?'':'s')+' · '+esc(TX.en.grades[gi])+'</div>';
+  document.body.appendChild(d);}
  window.__shotReady=true;}
 else{showTitle();if(!MAN)requestAnimationFrame(loop);}
 window.__YB={get mode(){return mode},get G(){return G},get best(){return best},CH,startMV,endMV,doCut,ev:EV,
