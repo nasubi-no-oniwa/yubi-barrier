@@ -1,4 +1,4 @@
-# database.rules.yubi.json を GitHub に上げると、自動で ft-green に反映する（ほかのゲームのルールはそのまま残す）
+# database.rules.yubi.json を GitHub に上げると、自動で ft-green に反映する（ほかのゲームのルールはそのまま残す）（2026-11-07）
 name: ランキングのルールを反映
 on:
   push:
