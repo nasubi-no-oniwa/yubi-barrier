@@ -34,6 +34,11 @@ ex('前より多い回数は載る（4回）',await req('PUT','yubi/all/scores/'
 ex('損切りした',await req('PUT','yubi/cut/'+U,U,{t:TS}),true);
 ex('すぐにもう一度損切りした',await req('PUT','yubi/cut/'+U,U,{t:TS}),false);
 ex('ほかの人を損切りさせる',await req('PUT','yubi/cut/'+U2,U,{t:TS}),false);
+ex('利確した',await req('PUT','yubi/take/'+U,U,{t:TS}),true);
+ex('すぐにもう一度利確した',await req('PUT','yubi/take/'+U,U,{t:TS}),false);
+ex('ほかの人を利確させる',await req('PUT','yubi/take/'+U2,U,{t:TS}),false);
+ex('利確した人の数を読める',await req('GET','yubi/take',null),true);
+ex('利確に余計なものをつける',await req('PUT','yubi/take/'+U2,U2,{t:TS,x:1}),false);
 ex('だれでも全期間の記録を読める',await req('GET','yubi/all/scores',null),true);
 ex('だれでも今日の記録を読める',await req('GET','yubi/d/scores',null),true);
 ex('損切りした人の数を読める',await req('GET','yubi/cut',null),true);

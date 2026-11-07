@@ -54,7 +54,7 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family
 #pos{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:9;transform:translateX(-50%);border:2px solid #3a4b66;border-radius:99px;background:#16202f;color:#cfe3ff;font:900 13px "Hiragino Maru Gothic ProN",system-ui,sans-serif;padding:8px 16px;white-space:nowrap;touch-action:none;cursor:grab}
 #pos b{color:#5be08a}
 #pos .pl{margin-left:8px;font-variant-numeric:tabular-nums}#pos .pl.dn{color:#ff7070}#pos .pl.up{color:#5be08a}
-#cutBtn{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);z-index:8;transform:translateX(-50%);border:2px solid #fff;border-radius:99px;background:#d8352a;color:#fff;font:900 13px "Hiragino Maru Gothic ProN",system-ui,sans-serif;padding:6px 14px;cursor:pointer;opacity:0;pointer-events:none;white-space:nowrap}
+#cutBtn{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);z-index:8;transform:translateX(-50%);border:2px solid #fff;border-radius:99px;background:#2563eb;color:#fff;font:900 13px "Hiragino Maru Gothic ProN",system-ui,sans-serif;padding:6px 14px;cursor:pointer;opacity:0;pointer-events:none;white-space:nowrap}
 #skipBtn{position:fixed;right:calc(env(safe-area-inset-right,0px) + 10px);top:calc(env(safe-area-inset-top,0px) + 10px);z-index:9;border:none;border-radius:99px;background:#000a;color:#fffc;font:800 11px "Hiragino Maru Gothic ProN",system-ui,sans-serif;padding:5px 11px;cursor:pointer}
 #mvCap{position:fixed;left:10px;right:10px;bottom:calc(env(safe-area-inset-bottom,0px) + 60px);text-align:center;z-index:5;pointer-events:none;font-size:20px;font-weight:900;color:#fff;text-shadow:0 2px 0 #000a,0 0 8px #000a;letter-spacing:.12em}
 .panel{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;background:#0008;padding:14px}
@@ -89,6 +89,8 @@ table.rank td.c{text-align:right;font-weight:900;white-space:nowrap}
 table.rank tr.me td{background:#e2f7fb}
 table.rank tr.cut td{background:#fde8e6;font-weight:900}
 table.rank tr.cut td.r{color:#d8352a;font-size:12px}
+table.rank tr.take td{background:#e6f7ea;font-weight:900}
+table.rank tr.take td.r{color:#1aa34a;font-size:12px}
 #rankBox{max-height:56vh;overflow:auto}
 #ogpT{position:fixed;left:0;right:0;top:9%;text-align:center;z-index:20;pointer-events:none;color:#fff;font-weight:900;text-shadow:0 5px 0 #0008,0 0 18px #000a}
 #ogpT b{display:block;font-size:120px;line-height:1}
@@ -164,66 +166,66 @@ ja:{title:'指<em>バリア</em><small>FINGER BARRIER</small>',bigTitle:'指バ�
  how:'含み損、ふくらむ。<br>下落が来たら、チャートを<b>指で左右にこすって</b>バリアを張れ。<br>こすりが足りれば反発、足りなければ強制ロスカット。<br>何回耐えられるか。',
  how2:'これはゲームです。本物の相場に指バリアは効きません。',
  start:'取引をはじめる',rank:'ランキング',best:'自己ベスト',none:'まだなし',times:'{n}回',skip:'スキップ ▶▶',
- pair:'ドル円 ・ ロング',cntL:'耐えた回数',pos:'<b>ロング</b> 保有中',cut:'損切りする',mg:'証拠金維持率',tk:'速報',
+ pair:'ドル円 ・ ロング',cntL:'耐えた回数',pos:'<b>ロング</b> 保有中',cut:'決済する',mg:'証拠金維持率',tk:'速報',
  news:['要人、なにか言う','雇用統計、なぜか悪い','大口の売り。たぶん1人','AIが一斉に売った','理由は、とくにない','あなたが買ったから','となりの国がくしゃみ','金曜の夜だから','ロスカット狩り、開始','お昼ごはんの時間','だれかが寝ぼけて売った','チャートが下に行きたい気分'],
  newsUp:['なぜか買い戻し。理由は不明','指バリアが効いた模様','売っていた人、こわくなる'],hot:'指が、熱い。',
  mv1:'朝。チャートを開く。',mv2:'今日こそ、取り返す。',
  drop:'下落！<br><small>左右にこすってバリアを張れ</small>',drop2:['また下がる！','止めろ！','こすれ！','まだ下がる！','バリアだ！','耐えろ！'],
- hold:'反発！',barrier:'バリア',lc:'強制ロスカット',lcSub:'バリア、突破される',cutBig:'損切り',cutSub:'正しく、逃げた',
- rHead:'結果',rHeadCut:'損切りした',sec:'回',ttl:'称号',newbest:'自己ベスト更新！',top:'上位 {p}％',maxLoss:'最大含み損',
- grades:['即退場','養分','口座開設したての人','含み損と暮らす人','ナンピン職人','指バリア使い','チャートの守護神','為替介入','中央銀行','相場の神','指バリアの開祖'],gradeCut:'損切りできる人',
- cutNote:'{n}回耐えたあと、自分で損切りした。<br>相場でいちばんむずかしいことをやった。',cutCount:'損切りできた人 {n}人',
- post:'指バリアで{n}回、下落を止めた。最大含み損 {m}。称号「{g}」',postCut:'{n}回耐えたあと、損切りした。称号「損切りできる人」',tags:'#指バリア',
+ hold:'反発！',barrier:'バリア',lc:'強制ロスカット',lcSub:'バリア、突破される',cutBig:'損切り',cutSub:'正しく、逃げた',takeBig:'利確',takeSub:'勝ち逃げ',
+ rHead:'結果',rHeadCut:'損切りした',rHeadTake:'利確した',fixedP:'確定した利益',fixedL:'確定した損失',sec:'回',ttl:'称号',newbest:'自己ベスト更新！',top:'上位 {p}％',maxLoss:'最大含み損',
+ grades:['即退場','養分','口座開設したての人','含み損と暮らす人','ナンピン職人','指バリア使い','チャートの守護神','為替介入','中央銀行','相場の神','指バリアの開祖'],gradeCut:'損切りできる人',gradeTake:'利確できる人',
+ cutNote:'{n}回耐えたあと、自分で損切りした。<br>相場でいちばんむずかしいことをやった。',cutCount:'損切りできた人 {n}人',takeNote:'{n}回耐えたあと、プラスのうちに決済した。<br>欲張らずに降りるのも、むずかしい。',takeCount:'利確できた人 {n}人',
+ post:'指バリアで{n}回、下落を止めた。最大含み損 {m}。称号「{g}」',postCut:'{n}回耐えたあと、損切りした（{m}）。称号「損切りできる人」',postTake:'{n}回耐えたあと、利確した（{m}）。称号「利確できる人」',tags:'#指バリア',
  sending:'送信中…',sent:'記録しました',notbetter:'前の記録の方が多いです',offline:'はじめたときに通信が間に合わなかったので、この回は記録されません',senderr:'送れませんでした',
- again:'もう一回',xpost:'Xに投稿',toTitle:'タイトルへ',today:'今日',alltime:'全期間',rkNote:'下落に耐えた回数ごとの人数',loading:'読み込み中…',empty:'まだ誰もいません',rankerr:'ランキングを読み込めませんでした',cutRow:'損切りした人',people:'{n}人',you:'あなた',back:'もどる'},
+ again:'もう一回',xpost:'Xに投稿',toTitle:'タイトルへ',today:'今日',alltime:'全期間',rkNote:'下落に耐えた回数ごとの人数',loading:'読み込み中…',empty:'まだ誰もいません',rankerr:'ランキングを読み込めませんでした',cutRow:'損切りした人',takeRow:'利確した人',people:'{n}人',you:'あなた',back:'もどる'},
 en:{title:'FINGER <em>BARRIER</em><small>指バリア</small>',bigTitle:'FINGER BARRIER',
  how:'Your position is bleeding.<br>When the crash comes, <b>rub the chart left and right</b> to raise a barrier.<br>Rub enough and it bounces. Not enough: margin call.<br>How many drops can you hold?',
  how2:'This is a game. Finger barriers do not work on real markets.',
  start:'Start trading',rank:'Ranking',best:'Best',none:'none yet',times:'{n}',skip:'Skip ▶▶',
- pair:'USD/JPY ・ LONG',cntL:'Drops held',pos:'<b>LONG</b> open',cut:'Cut losses',mg:'Margin level',tk:'BREAKING',
+ pair:'USD/JPY ・ LONG',cntL:'Drops held',pos:'<b>LONG</b> open',cut:'Close position',mg:'Margin level',tk:'BREAKING',
  news:['An official said something','Jobs data somehow bad','One big seller. Probably one guy','Every AI sold at once','No particular reason','Because you bought','A neighboring country sneezed',"It's Friday night",'Stop-loss hunt begins',"It's lunch time",'Someone sold half asleep','The chart feels like going down'],
  newsUp:['Buyback. Reason unknown','Finger barrier reportedly worked','Short sellers got scared'],hot:'Your finger is burning.',
  mv1:'Morning. Open the chart.',mv2:'Today I win it back.',
  drop:'CRASH!<br><small>rub left and right to raise a barrier</small>',drop2:['Dropping again!','Stop it!','Rub!','Still falling!','Barrier!','Hold it!'],
- hold:'BOUNCE!',barrier:'Barrier',lc:'MARGIN CALL',lcSub:'the barrier broke',cutBig:'CUT',cutSub:'you got out',
- rHead:'Result',rHeadCut:'You cut your losses',sec:'',ttl:'Title',newbest:'New personal best!',top:'Top {p}%',maxLoss:'Max unrealized loss',
- grades:['Instantly Out','Exit Liquidity','Fresh Account','Living in the Red','Averaging-Down Artisan','Finger Barrier User','Chart Guardian','Market Intervention','Central Bank','God of the Market','Founder of the Finger Barrier'],gradeCut:'Can Actually Cut Losses',
- cutNote:'After holding {n} drops, you cut your losses yourself.<br>The hardest thing in trading.',cutCount:'{n} people cut their losses',
- post:'I held {n} market drops with a finger barrier. Max unrealized loss {m}. Title: {g}',postCut:'Held {n} drops, then cut my losses. Title: Can Actually Cut Losses',tags:'#指バリア',
+ hold:'BOUNCE!',barrier:'Barrier',lc:'MARGIN CALL',lcSub:'the barrier broke',cutBig:'CUT',cutSub:'you got out',takeBig:'TAKE PROFIT',takeSub:'you walked away ahead',
+ rHead:'Result',rHeadCut:'You cut your losses',rHeadTake:'You took profit',fixedP:'Locked-in profit',fixedL:'Locked-in loss',sec:'',ttl:'Title',newbest:'New personal best!',top:'Top {p}%',maxLoss:'Max unrealized loss',
+ grades:['Instantly Out','Exit Liquidity','Fresh Account','Living in the Red','Averaging-Down Artisan','Finger Barrier User','Chart Guardian','Market Intervention','Central Bank','God of the Market','Founder of the Finger Barrier'],gradeCut:'Can Actually Cut Losses',gradeTake:'Can Actually Take Profit',
+ cutNote:'After holding {n} drops, you cut your losses yourself.<br>The hardest thing in trading.',cutCount:'{n} people cut their losses',takeNote:'After holding {n} drops, you closed while still in the green.<br>Walking away is hard too.',takeCount:'{n} people took profit',
+ post:'I held {n} market drops with a finger barrier. Max unrealized loss {m}. Title: {g}',postCut:'Held {n} drops, then cut my losses ({m}). Title: Can Actually Cut Losses',postTake:'Held {n} drops, then took profit ({m}). Title: Can Actually Take Profit',tags:'#指バリア',
  sending:'Sending…',sent:'Recorded',notbetter:'Your earlier record is higher',offline:'The connection was too slow when you started, so this run won\'t be recorded',senderr:'Could not send',
- again:'Again',xpost:'Post to X',toTitle:'Title',today:'Today',alltime:'All time',rkNote:'Players by drops held',loading:'Loading…',empty:'No one yet',rankerr:'Could not load the ranking',cutRow:'Cut their losses',people:'{n}',you:'you',back:'Back'},
+ again:'Again',xpost:'Post to X',toTitle:'Title',today:'Today',alltime:'All time',rkNote:'Players by drops held',loading:'Loading…',empty:'No one yet',rankerr:'Could not load the ranking',cutRow:'Cut their losses',takeRow:'Took profit',people:'{n}',you:'you',back:'Back'},
 zh:{title:'手指<em>結界</em><small>FINGER BARRIER・指バリア</small>',bigTitle:'手指結界',
  how:'浮虧越來越大。<br>下跌來了，就<b>用手指左右搓圖表</b>張開結界。<br>搓得夠就反彈，不夠就強制平倉。<br>你能撐幾次？',
  how2:'這是遊戲。真正的行情，手指結界沒有用。',
  start:'開始交易',rank:'排行榜',best:'個人最佳',none:'還沒有',times:'{n}次',skip:'略過 ▶▶',
- pair:'美元/日圓 ・ 做多',cntL:'撐住的次數',pos:'<b>做多</b> 持有中',cut:'停損',mg:'保證金維持率',tk:'快訊',
+ pair:'美元/日圓 ・ 做多',cntL:'撐住的次數',pos:'<b>做多</b> 持有中',cut:'平倉',mg:'保證金維持率',tk:'快訊',
  news:['要人說了些什麼','就業數據莫名很差','大額賣單，大概只有一個人','AI 同時賣出','沒有特別的理由','因為你買了','鄰國打了個噴嚏','因為是週五晚上','停損獵殺開始','午餐時間','有人睡迷糊賣了','K線想往下走'],
  newsUp:['莫名回補，原因不明','據說手指結界奏效','空頭嚇到了'],hot:'手指好燙。',
  mv1:'早上，打開圖表。',mv2:'今天一定要贏回來。',
  drop:'下跌！<br><small>左右搓，張開結界</small>',drop2:['又跌了！','擋住！','快搓！','還在跌！','結界！','撐住！'],
- hold:'反彈！',barrier:'結界',lc:'強制平倉',lcSub:'結界被突破',cutBig:'停損',cutSub:'正確地逃了',
- rHead:'結果',rHeadCut:'停損了',sec:'次',ttl:'稱號',newbest:'刷新個人最佳！',top:'前 {p}％',maxLoss:'最大浮虧',
- grades:['秒退場','韭菜','剛開戶的人','與浮虧共存','攤平職人','手指結界使','K線守護神','匯率干預','央行','行情之神','手指結界始祖'],gradeCut:'懂得停損的人',
- cutNote:'撐了{n}次之後，自己停損了。<br>做到了交易裡最難的事。',cutCount:'停損的人 {n}人',
- post:'用手指結界擋住了{n}次下跌。最大浮虧 {m}。稱號「{g}」',postCut:'撐了{n}次之後停損了。稱號「懂得停損的人」',tags:'#指バリア',
+ hold:'反彈！',barrier:'結界',lc:'強制平倉',lcSub:'結界被突破',cutBig:'停損',cutSub:'正確地逃了',takeBig:'獲利了結',takeSub:'贏了就跑',
+ rHead:'結果',rHeadCut:'停損了',rHeadTake:'獲利了結了',fixedP:'確定的獲利',fixedL:'確定的虧損',sec:'次',ttl:'稱號',newbest:'刷新個人最佳！',top:'前 {p}％',maxLoss:'最大浮虧',
+ grades:['秒退場','韭菜','剛開戶的人','與浮虧共存','攤平職人','手指結界使','K線守護神','匯率干預','央行','行情之神','手指結界始祖'],gradeCut:'懂得停損的人',gradeTake:'懂得獲利了結的人',
+ cutNote:'撐了{n}次之後，自己停損了。<br>做到了交易裡最難的事。',cutCount:'停損的人 {n}人',takeNote:'撐了{n}次之後，趁還有賺的時候平倉。<br>不貪心地下車，也很難。',takeCount:'獲利了結的人 {n}人',
+ post:'用手指結界擋住了{n}次下跌。最大浮虧 {m}。稱號「{g}」',postCut:'撐了{n}次之後停損了（{m}）。稱號「懂得停損的人」',postTake:'撐了{n}次之後獲利了結（{m}）。稱號「懂得獲利了結的人」',tags:'#指バリア',
  sending:'傳送中…',sent:'已記錄',notbetter:'之前的紀錄比較多',offline:'開始時連線來不及，這次不列入紀錄',senderr:'無法傳送',
- again:'再一次',xpost:'發到 X',toTitle:'回標題',today:'今天',alltime:'全部',rkNote:'依撐住次數統計人數',loading:'讀取中…',empty:'還沒有人',rankerr:'無法讀取排行榜',cutRow:'停損的人',people:'{n}人',you:'你',back:'返回'},
+ again:'再一次',xpost:'發到 X',toTitle:'回標題',today:'今天',alltime:'全部',rkNote:'依撐住次數統計人數',loading:'讀取中…',empty:'還沒有人',rankerr:'無法讀取排行榜',cutRow:'停損的人',takeRow:'獲利了結的人',people:'{n}人',you:'你',back:'返回'},
 ko:{title:'손가락 <em>배리어</em><small>FINGER BARRIER・指バリア</small>',bigTitle:'손가락 배리어',
  how:'평가손이 불어난다.<br>하락이 오면 차트를 <b>손가락으로 좌우로 문질러</b> 배리어를 쳐라.<br>충분히 문지르면 반등, 모자라면 강제 로스컷.<br>몇 번 버틸 수 있을까.',
  how2:'이건 게임입니다. 진짜 시장에서는 손가락 배리어가 통하지 않아요.',
  start:'거래 시작',rank:'랭킹',best:'최고 기록',none:'아직 없음',times:'{n}번',skip:'건너뛰기 ▶▶',
- pair:'달러/엔 ・ 롱',cntL:'버틴 횟수',pos:'<b>롱</b> 보유 중',cut:'손절하기',mg:'증거금 유지율',tk:'속보',
+ pair:'달러/엔 ・ 롱',cntL:'버틴 횟수',pos:'<b>롱</b> 보유 중',cut:'청산하기',mg:'증거금 유지율',tk:'속보',
  news:['요인이 뭔가 말했다','고용지표, 왠지 나쁨','큰손 매도. 아마 한 명','AI가 일제히 팔았다','딱히 이유는 없다','당신이 샀기 때문','이웃 나라가 재채기','금요일 밤이라서','손절 사냥 시작','점심시간','누가 잠결에 팔았다','차트가 내려가고 싶은 기분'],
  newsUp:['이유 모를 되사기','손가락 배리어가 통한 듯','공매도 세력이 겁먹었다'],hot:'손가락이 뜨겁다.',
  mv1:'아침. 차트를 연다.',mv2:'오늘은 꼭 되찾는다.',
  drop:'하락!<br><small>좌우로 문질러 배리어를 쳐라</small>',drop2:['또 떨어진다!','막아!','문질러!','아직 떨어진다!','배리어다!','버텨!'],
- hold:'반등!',barrier:'배리어',lc:'강제 로스컷',lcSub:'배리어가 뚫렸다',cutBig:'손절',cutSub:'제대로 도망쳤다',
- rHead:'결과',rHeadCut:'손절했다',sec:'번',ttl:'칭호',newbest:'최고 기록 갱신!',top:'상위 {p}%',maxLoss:'최대 평가손',
- grades:['즉시 퇴장','개미','막 계좌 튼 사람','평가손과 사는 사람','물타기 장인','손가락 배리어 사용자','차트의 수호신','환율 개입','중앙은행','시장의 신','손가락 배리어의 창시자'],gradeCut:'손절할 줄 아는 사람',
- cutNote:'{n}번 버틴 뒤, 스스로 손절했다.<br>트레이딩에서 가장 어려운 일을 해냈다.',cutCount:'손절한 사람 {n}명',
- post:'손가락 배리어로 하락을 {n}번 막았다. 최대 평가손 {m}. 칭호 「{g}」',postCut:'{n}번 버틴 뒤 손절했다. 칭호 「손절할 줄 아는 사람」',tags:'#指バリア',
+ hold:'반등!',barrier:'배리어',lc:'강제 로스컷',lcSub:'배리어가 뚫렸다',cutBig:'손절',cutSub:'제대로 도망쳤다',takeBig:'익절',takeSub:'이기고 튀었다',
+ rHead:'결과',rHeadCut:'손절했다',rHeadTake:'익절했다',fixedP:'확정 이익',fixedL:'확정 손실',sec:'번',ttl:'칭호',newbest:'최고 기록 갱신!',top:'상위 {p}%',maxLoss:'최대 평가손',
+ grades:['즉시 퇴장','개미','막 계좌 튼 사람','평가손과 사는 사람','물타기 장인','손가락 배리어 사용자','차트의 수호신','환율 개입','중앙은행','시장의 신','손가락 배리어의 창시자'],gradeCut:'손절할 줄 아는 사람',gradeTake:'익절할 줄 아는 사람',
+ cutNote:'{n}번 버틴 뒤, 스스로 손절했다.<br>트레이딩에서 가장 어려운 일을 해냈다.',cutCount:'손절한 사람 {n}명',takeNote:'{n}번 버틴 뒤, 플러스일 때 청산했다.<br>욕심 없이 내리는 것도 어렵다.',takeCount:'익절한 사람 {n}명',
+ post:'손가락 배리어로 하락을 {n}번 막았다. 최대 평가손 {m}. 칭호 「{g}」',postCut:'{n}번 버틴 뒤 손절했다 ({m}). 칭호 「손절할 줄 아는 사람」',postTake:'{n}번 버틴 뒤 익절했다 ({m}). 칭호 「익절할 줄 아는 사람」',tags:'#指バリア',
  sending:'전송 중…',sent:'기록했어요',notbetter:'이전 기록이 더 많아요',offline:'시작할 때 통신이 늦어서 이번 기록은 남지 않아요',senderr:'보내지 못했어요',
- again:'한 번 더',xpost:'X에 올리기',toTitle:'타이틀로',today:'오늘',alltime:'전체',rkNote:'버틴 횟수별 인원',loading:'불러오는 중…',empty:'아직 아무도 없어요',rankerr:'랭킹을 불러오지 못했어요',cutRow:'손절한 사람',people:'{n}명',you:'나',back:'돌아가기'}
+ again:'한 번 더',xpost:'X에 올리기',toTitle:'타이틀로',today:'오늘',alltime:'전체',rkNote:'버틴 횟수별 인원',loading:'불러오는 중…',empty:'아직 아무도 없어요',rankerr:'랭킹을 불러오지 못했어요',cutRow:'손절한 사람',takeRow:'익절한 사람',people:'{n}명',you:'나',back:'돌아가기'}
 };
 const LANGS=[['ja','日本語'],['en','English'],['zh','繁中'],['ko','한국어']];
 let lang=(q=>['ja','en','zh','ko'].includes(q)?q:null)(QS.get('lang'))||ls.get('yb_lang',null)||(n=>n.startsWith('ja')?'ja':n.startsWith('zh')?'zh':n.startsWith('ko')?'ko':'en')((navigator.language||'ja').toLowerCase());
@@ -442,7 +444,8 @@ function pipStep(dt){const ph=G.ph==='pvend'?'lc':G.ph;
   lean=.1+.28*p;xx=Math.sin(CLK*46)*.012*p;_sc.setHex(SCR0).lerp(_red,q);lc=_sc.getHex();li=1.4+.9*q;}
  else if(ph==='hold'){tR={ax:-3.0,az:.35,kx:-.1};tL={ax:-3.0,az:-.35,kx:-.1};lean=-.1;yy=.55+.06*Math.sin(Math.min(1,G.pt*2.5)*Math.PI);lc=0x40ff80;li=2.0;}
  else if(ph==='lc'){tR={ax:-.15,az:.12,kx:0};tL={ax:-.15,az:-.12,kx:0};lean=.85;rz=.25*sm((G.pt||0)-.6);lc=0xff2020;li=Math.sin(CLK*12)>0?1.8:.8;}
- else if(ph==='cut'){tR={ax:-2.6,az:.9,kx:-2.3};tL={ax:-2.6,az:-.9,kx:-2.3};lean=-.25;lc=0x40ff80;li=2;}
+ else if(ph==='cut'){tR={ax:-2.6,az:.9,kx:-2.3};tL={ax:-2.6,az:-.9,kx:-2.3};lean=-.25;lc=0x7fd8ff;li=2;}
+ else if(ph==='take'){tR={ax:-3.0,az:.35,kx:-.1};tL={ax:-3.0,az:-.35,kx:-.1};lean=-.1;yy=.55+.05*Math.abs(Math.sin(CLK*7));lc=0x40ff80;li=2.0;}
  const a=1-Math.exp(-dt*10);
  for(const [A,tg] of [[armR,tR],[armL,tL]]){A.a.rotation.x=lerp(A.a.rotation.x,tg.ax,a);A.a.rotation.z=lerp(A.a.rotation.z,tg.az,a);A.k.rotation.x=lerp(A.k.rotation.x,tg.kx,a);}
  pel.rotation.x=lerp(pel.rotation.x,lean,a);pel.rotation.z=lerp(pel.rotation.z,rz,a);pel.position.y=lerp(pel.position.y,yy,a);pel.position.x=xx;
@@ -476,13 +479,13 @@ function playUpdate(dt,now){G.pt+=dt;
   if(G.pt>=1.0){G.ph='calm';G.pt=0;G.calmT=.8+Math.random()*.6;CH.lossP=null;CH.bar=null;TK.hideAt=CLK+1.4;
    if(G.rubTot>45&&!G.hot){G.hot=1;cap(t('hot'),true);}else cap('');}}
  else if(G.ph==='lc'){CH.p-=dt*(G.Rg*1.6+G.pt*G.Rg*2);shakeA=Math.max(shakeA,1.2*(1-G.pt/1.8));CH.danger=1;if(Math.sin(CLK*10)>.6)CH.pulse=1;if(G.pt>=2.0)showResult('lc');}
- else if(G.ph==='cut'){if(G.pt>=1.8)showResult('cut');}
+ else if(G.ph==='cut'||G.ph==='take'){if(G.pt>=1.8)showResult(G.ph);}
  if(G.ph!=='drop'&&G.ph!=='lc'&&G.ph!=='pvend')CH.danger*=Math.pow(.08,dt);
  // こする速さ
  const inst=(G.rub-G.rubPrev)/Math.max(dt,1e-3);G.rubPrev=G.rub;G.rs=lerp(G.rs||0,G.ph==='drop'?inst:0,1-Math.exp(-dt*8));
  chStep(dt);
  // 含み損益・証拠金維持率
- if(G.ph!=='lc'&&G.ph!=='pvend'&&G.ph!=='cut')G.plNow=(CH.p-G.entry)*LOT;const pl=G.plNow||0;G.maxPL=Math.min(G.maxPL,pl);
+ if(G.ph!=='lc'&&G.ph!=='pvend'&&G.ph!=='cut'&&G.ph!=='take')G.plNow=(CH.p-G.entry)*LOT;const pl=G.plNow||0;G.maxPL=Math.min(G.maxPL,pl);
  let mg;if(G.ph==='drop')mg=50+250*clamp((CH.p-CH.lossP)/Math.max(1e-6,G.P0-CH.lossP),0,1);else if(G.ph==='lc'||G.ph==='pvend')mg=Math.max(0,50-(CH.lossP-CH.p)/G.Rg*120);else mg=lerp(G.mg,310+Math.sin(CLK*.7)*8,1-Math.exp(-dt*3));G.mg=mg;
  const s=yen(pl);if(s!==G.plS){G.plS=s;const e=$('posPL');if(e){e.textContent=s;e.className='pl '+(pl<0?'dn':'up');}}
  const mi=Math.round(mg),me=$('hudMg');if(mi!==G.mgS){G.mgS=mi;me.textContent=t('mg')+' '+mi+'%';}
@@ -493,8 +496,10 @@ function holdDrop(){if(CH.bar)CH.bar.k=1;G.n++;G.ph='hold';G.pt=0;G.bc=0;G.hp=CH
 function lossCut(){G.ph='lc';G.pt=0;SFX.crash();flashA=.8;cap('');big(t('lc')+'<small>'+t('lcSub')+'</small>','red');
  if(CH.bar){CH.bar.broken=true;const y=CH.bar.y;for(let i=0;i<46;i++)CH.shards.push({x:Math.random()*W,y,vx:(Math.random()-.5)*500,vy:-80-Math.random()*380,r:0,w:(Math.random()-.5)*14,a:1.2,s:5+Math.random()*12});}
  G.res={n:G.n,kind:'lc'};submit();}
-function doCut(){if(mode!=='play'||G.ph==='lc'||G.ph==='cut'||G.ph==='pvend')return;G.ph='cut';G.pt=0;SFX.cut();cap('');big(t('cutBig')+'<small>'+t('cutSub')+'</small>','grn');CH.lossP=null;CH.bar=null;CH.danger=0;posReset();$('cutBtn').hidden=true;$('ticker').hidden=true;
- G.res={n:G.n,kind:'cut'};sendCut();submit();}
+// 決済：含み損なら損切り、含み益なら利確
+function doCut(){if(mode!=='play'||!(G.ph==='calm'||G.ph==='drop'||G.ph==='hold'))return;const pl=G.plNow||0,take=pl>=0;G.fixPL=pl;G.ph=take?'take':'cut';G.pt=0;SFX.cut();cap('');
+ big(take?t('takeBig')+'<small>'+t('takeSub')+'</small>':t('cutBig')+'<small>'+t('cutSub')+'</small>',take?'grn':'cyan');CH.lossP=null;CH.bar=null;CH.danger=0;posReset();$('cutBtn').hidden=true;$('ticker').hidden=true;
+ G.res={n:G.n,kind:G.ph};sendClose(take);submit();}
 
 // --- こする ---
 let ptr=null;
@@ -520,14 +525,15 @@ $('cutBtn').onclick=e=>{e.stopPropagation();doCut();};
 let resKind='lc';
 function showResult(kind){mode='result';mT=0;resKind=kind;show('result');hudOn(false);big('');cap('');const r=G.res||{n:0};
  if(r.n>best){best=r.n;ls.set('yb_best',best);r.newBest=true;}
- $('rLoss').textContent=G.maxPL<0?t('maxLoss')+' '+yen(G.maxPL):'';
- if(kind==='cut'){$('rHead').textContent=t('rHeadCut');$('rHead').style.color='#1aa34a';$('rCnt').innerHTML=r.n+'<small>'+t('sec')+'</small>';$('rGrade').innerHTML='<span style="font-size:13px;color:var(--sub)">'+t('ttl')+'</span><br>「'+esc(t('gradeCut'))+'」';
-  $('rNote').innerHTML=t('cutNote',{n:r.n})+(cutN?'<br>'+esc(t('cutCount',{n:cutN.toLocaleString()})):'');}
+ const fix=kind==='cut'||kind==='take';$('rLoss').style.color=fix&&G.fixPL>=0?'#1aa34a':'';
+ $('rLoss').textContent=fix?t(G.fixPL>=0?'fixedP':'fixedL')+' '+yen(G.fixPL):G.maxPL<0?t('maxLoss')+' '+yen(G.maxPL):'';
+ if(fix){const tk=kind==='take',cn=tk?takeN:cutN;$('rHead').textContent=t(tk?'rHeadTake':'rHeadCut');$('rHead').style.color=tk?'#1aa34a':'#0f9fb8';$('rCnt').innerHTML=r.n+'<small>'+t('sec')+'</small>';$('rGrade').innerHTML='<span style="font-size:13px;color:var(--sub)">'+t('ttl')+'</span><br>「'+esc(t(tk?'gradeTake':'gradeCut'))+'」';
+  $('rNote').innerHTML=t(tk?'takeNote':'cutNote',{n:r.n})+(cn?'<br>'+esc(t(tk?'takeCount':'cutCount',{n:cn.toLocaleString()})):'');}
  else{$('rHead').textContent=t('rHead');$('rHead').style.color='';$('rCnt').innerHTML=r.n+'<small>'+t('sec')+'</small>';$('rGrade').innerHTML='<span style="font-size:13px;color:var(--sub)">'+t('ttl')+'</span><br>「'+esc(grade(r.n))+'」';
   $('rNote').innerHTML=(r.newBest&&r.n>0?'<b style="color:#1aa34a">'+t('newbest')+'</b>':'')+(r.topP?'<br>'+esc(t('top',{p:r.topP})):'');}
  $('sendMsg').textContent=sendState.msg||'';$('sendMsg').className='note '+(sendState.cls||'');}
 function refreshResult(){if(mode==='result')showResult(resKind);}
-function postText(){const r=G.res||{n:0};return (resKind==='cut'?t('postCut',{n:r.n}):t('post',{n:r.n,g:grade(r.n),m:yen(Math.min(0,G.maxPL||0))}))+'\n'+t('tags');}
+function postText(){const r=G.res||{n:0};return (resKind==='cut'?t('postCut',{n:r.n,m:yen(G.fixPL||0)}):resKind==='take'?t('postTake',{n:r.n,m:yen(G.fixPL||0)}):t('post',{n:r.n,g:grade(r.n),m:yen(Math.min(0,G.maxPL||0))}))+'\n'+t('tags');}
 $('xBtn').onclick=()=>{const u='https://x.com/intent/post?text='+encodeURIComponent(postText())+'&url='+encodeURIComponent(GAME_URL);const w=window.open(u,'_blank');if(!w)location.href=u;};
 
 // ===== ランキング（Firebase：ft-green の yubi の下。名前はなし、回数ごとの人数だけ） =====
@@ -550,7 +556,7 @@ function takeTicket(){if(PV)return Promise.resolve(Date.now());
 const dayKey=ms=>Math.floor((ms+32400000)/86400000);
 let sendState={};
 async function submit(){const r=G.res;sendState={msg:'',cls:''};const setMsg=(m,c)=>{sendState.msg=m;sendState.cls=c;refreshResult();};
- if(r.n<1)return;if(r.kind==='cut')return; // 損切りした人は回数の人数に入れない
+ if(r.n<1)return;if(r.kind==='cut'||r.kind==='take')return; // 決済した人（損切り・利確）は回数の人数に入れない
  if(PV){setMsg(t('sent'),'ok');return;}
  setMsg(t('sending'),'');
  try{const st=await G.ticket;if(st==null){setMsg(t('offline'),'err');return;}
@@ -563,25 +569,25 @@ async function submit(){const r=G.res;sendState={msg:'',cls:''};const setMsg=(m,
   if(!sent){setMsg(okAll||okD?t('senderr'):t('notbetter'),okAll||okD?'err':'');}else setMsg(t('sent'),'ok');
   try{const rows=await loadBoard('all');const tot=rows.length;if(tot>=5){const above=rows.filter(x=>x.s>r.n).length;r.topP=Math.max(1,Math.ceil((above+1)/tot*100));refreshResult();}}catch(_){}
  }catch(e){console.warn(e);setMsg(t('senderr'),'err');}}
-let cutN=0;
+let cutN=0,takeN=0;
 async function countOf(p,since){const url=since?DB(p)+'.json?orderBy=%22t%22&startAt='+since:DB(p)+'.json?shallow=true';const r=await fetchR(url);if(!r.ok)return 0;const j=await r.json();return j?Object.keys(j).length:0;}
-async function sendCut(){if(PV){cutN=3;return;}try{const a=await fbAuth();await PUT(DB('cut/'+a.uid)+QA(a),{t:{'.sv':'timestamp'}});cutN=await countOf('cut');refreshResult();}catch(e){console.warn(e);}}
+async function sendClose(take){const k=take?'take':'cut';if(PV){if(take)takeN=2;else cutN=3;return;}try{const a=await fbAuth();await PUT(DB(k+'/'+a.uid)+QA(a),{t:{'.sv':'timestamp'}});const n=await countOf(k);if(take)takeN=n;else cutN=n;refreshResult();}catch(e){console.warn(e);}}
 async function loadBoard(board){const today=dayKey(Date.now());
  const url=board==='d'?DB('d/scores')+'.json?orderBy=%22dk%22&equalTo='+today:DB('all/scores')+'.json?orderBy=%22s%22&limitToLast=5000';
  const [d,h]=await Promise.all([fetch(url).then(r=>{if(!r.ok)throw 0;return r.json()}),fetch(DB('hidden')+'.json').then(r=>r.ok?r.json():null).catch(()=>null)]);
  return Object.entries(d||{}).map(([id,v])=>({...v,id})).filter(r=>!(h&&h[r.id])&&typeof r.s==='number');}
 let rankFrom=false;
-function boardHTML(rows,cn,myId){const m=new Map();let mine=null;for(const r of rows){const s=Math.floor(r.s);m.set(s,(m.get(s)||0)+1);if(r.id===myId)mine=s;}
+function boardHTML(rows,cn,tn,myId){const m=new Map();let mine=null;for(const r of rows){const s=Math.floor(r.s);m.set(s,(m.get(s)||0)+1);if(r.id===myId)mine=s;}
  const ks=[...m.keys()].sort((a,b)=>b-a);
- let h='<table class="rank"><tr class="cut"><td class="r">'+esc(t('cutRow'))+'</td><td class="n">'+esc(t('gradeCut'))+'</td><td class="c">'+esc(t('people',{n:cn.toLocaleString()}))+'</td></tr>';
+ let h='<table class="rank"><tr class="cut"><td class="r">'+esc(t('cutRow'))+'</td><td class="n">'+esc(t('gradeCut'))+'</td><td class="c">'+esc(t('people',{n:cn.toLocaleString()}))+'</td></tr><tr class="take"><td class="r">'+esc(t('takeRow'))+'</td><td class="n">'+esc(t('gradeTake'))+'</td><td class="c">'+esc(t('people',{n:tn.toLocaleString()}))+'</td></tr>';
  h+=ks.map(s=>'<tr'+(s===mine?' class="me"':'')+'><td class="r">'+esc(t('times',{n:s}))+'</td><td class="n">'+esc(grade(s))+(s===mine?' ・ '+esc(t('you')):'')+'</td><td class="c">'+esc(t('people',{n:m.get(s).toLocaleString()}))+'</td></tr>').join('');
  if(!ks.length)h+='<tr><td></td><td colspan="2">'+t('empty')+'</td></tr>';return h+'</table>';}
 async function openRank(board,fromResult){rankFrom=!!fromResult;show('rankPanel');$('tabDay').classList.toggle('on',board==='d');$('tabAll').classList.toggle('on',board==='all');$('tabDay').onclick=()=>openRank('d',rankFrom);$('tabAll').onclick=()=>openRank('all',rankFrom);
  const box=$('rankBox');box.innerHTML='<p>'+t('loading')+'</p>';
- if(PV){box.innerHTML=boardHTML([{id:'me',s:best||3},{id:'a',s:5},{id:'b',s:3},{id:'c',s:1}],2,'me');return;}
+ if(PV){box.innerHTML=boardHTML([{id:'me',s:best||3},{id:'a',s:5},{id:'b',s:3},{id:'c',s:1}],2,1,'me');return;}
  try{const since=board==='d'?(dayKey(Date.now())*86400000-32400000):0;
-  const [rows,cn]=await Promise.all([loadBoard(board),countOf('cut',since||undefined).catch(()=>0)]);const myId=(ls.get('yb_auth',null)||{}).uid;
-  box.innerHTML=boardHTML(rows,cn,myId);
+  const [rows,cn,tn]=await Promise.all([loadBoard(board),countOf('cut',since||undefined).catch(()=>0),countOf('take',since||undefined).catch(()=>0)]);const myId=(ls.get('yb_auth',null)||{}).uid;
+  box.innerHTML=boardHTML(rows,cn,tn,myId);
  }catch(e){box.innerHTML='<p>'+t('rankerr')+'</p>';}}
 $('rankBtn').onclick=()=>openRank('d');$('rRank').onclick=()=>openRank('d',true);
 $('rankBack').onclick=()=>{if(rankFrom){show('result');}else showTitle();};
