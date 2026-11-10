@@ -43,7 +43,8 @@
     "scores": {
       ".read": true,
       ".indexOn": [
-        "dk"
+        "dk",
+        "ds"
       ],
       "$uid": {
         ".write": "auth != null && auth.uid === $uid && newData.exists() && newData.child('st').val() === root.child('yubi/runs/' + $uid + '/t').val() && (!data.exists() || newData.child('dk').val() > data.child('dk').val() || (newData.child('dk').val() === data.child('dk').val() && newData.child('st').val() > data.child('st').val() && newData.child('s').val() > data.child('s').val())) && now >= newData.child('st').val() + newData.child('s').val() * 1500 - 3000 && now <= newData.child('st').val() + 3600000",
@@ -65,6 +66,9 @@
         },
         "$other": {
           ".validate": false
+        },
+        "ds": {
+          ".validate": "newData.isNumber() && newData.val() === newData.parent().child('dk').val() * 1000 + newData.parent().child('s').val()"
         }
       }
     }
@@ -102,6 +106,45 @@
     ]
   },
   "hidden": {
+    ".read": true
+  },
+  "cutc": {
+    ".read": true,
+    ".write": "auth != null && newData.isNumber() && newData.val() === (data.exists() ? data.val() : 0) + 1 && !data.parent().child('cut/' + auth.uid).exists() && newData.parent().child('cut/' + auth.uid + '/t').val() === now"
+  },
+  "cutt": {
+    ".read": true,
+    ".write": "auth != null && newData.child('dk').isNumber() && newData.child('dk').val() * 86400000 <= now + 32400000 && (newData.child('dk').val() + 1) * 86400000 > now + 32400000 && newData.child('n').val() === ((data.exists() && data.child('dk').val() === newData.child('dk').val()) ? data.child('n').val() + 1 : 1) && (!data.parent().child('cut/' + auth.uid).exists() || data.parent().child('cut/' + auth.uid + '/t').val() < newData.child('dk').val() * 86400000 - 32400000) && newData.parent().child('cut/' + auth.uid + '/t').val() === now",
+    ".validate": "newData.hasChildren(['dk', 'n'])",
+    "dk": {
+      ".validate": "newData.isNumber()"
+    },
+    "n": {
+      ".validate": "newData.isNumber()"
+    },
+    "$other": {
+      ".validate": false
+    }
+  },
+  "takec": {
+    ".read": true,
+    ".write": "auth != null && newData.isNumber() && newData.val() === (data.exists() ? data.val() : 0) + 1 && !data.parent().child('take/' + auth.uid).exists() && newData.parent().child('take/' + auth.uid + '/t').val() === now"
+  },
+  "taket": {
+    ".read": true,
+    ".write": "auth != null && newData.child('dk').isNumber() && newData.child('dk').val() * 86400000 <= now + 32400000 && (newData.child('dk').val() + 1) * 86400000 > now + 32400000 && newData.child('n').val() === ((data.exists() && data.child('dk').val() === newData.child('dk').val()) ? data.child('n').val() + 1 : 1) && (!data.parent().child('take/' + auth.uid).exists() || data.parent().child('take/' + auth.uid + '/t').val() < newData.child('dk').val() * 86400000 - 32400000) && newData.parent().child('take/' + auth.uid + '/t').val() === now",
+    ".validate": "newData.hasChildren(['dk', 'n'])",
+    "dk": {
+      ".validate": "newData.isNumber()"
+    },
+    "n": {
+      ".validate": "newData.isNumber()"
+    },
+    "$other": {
+      ".validate": false
+    }
+  },
+  "hist": {
     ".read": true
   }
 }

@@ -569,7 +569,7 @@ async function fbAuth(){if(PV)throw new Error('pv');
  if(!r.ok)throw new Error('auth');const j=await r.json();a={uid:j.localId,token:j.idToken,refresh:j.refreshToken,exp:Date.now()+(+j.expiresIn)*1000};ls.set('yb_auth',a);return a;}
 if(!PV&&!OGP&&!ICON&&!SHARE)fbAuth().catch(()=>{});
 const DB=p=>FB.databaseURL+'/yubi/'+p;
-const QA=a=>'.json?auth='+encodeURIComponent(a.token);
+const QA=a=>'.json?auth='+encodeURIComponent(a.token);const QJ=QA,DBROOT=FB.databaseURL+'/yubi';
 const PUT=(url,body)=>fetchR(url,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
 // ずる対策：はじめた瞬間にサーバーの時計を書く。記録はその時刻から実際に時間がたっていないと載らない
 function takeTicket(){if(PV)return Promise.resolve(Date.now());
@@ -586,20 +586,24 @@ async function submit(){const r=G.res;sendState={msg:'',cls:''};const setMsg=(m,
   const cur=await fetchR(DB('all/scores/'+a.uid)+'.json').then(x=>x.ok?x.json():null).catch(()=>null);
   const curD=await fetchR(DB('d/scores/'+a.uid)+'.json').then(x=>x.ok?x.json():null).catch(()=>null);
   const okAll=!cur||cur.s<r.n,okD=!curD||curD.dk!==dk||curD.s<r.n;let sent=0;
-  if(okD){const res=await PUT(DB('d/scores/'+a.uid)+QA(a),{...rec,dk});if(res.ok)sent++;}
+  if(okD){const res=await PUT(DB('d/scores/'+a.uid)+QA(a),{...rec,dk,ds:dk*1000+rec.s});if(res.ok)sent++;}
   if(okAll){const res=await PUT(DB('all/scores/'+a.uid)+QA(a),rec);if(res.ok)sent++;}
   if(!sent){setMsg(okAll||okD?t('senderr'):t('notbetter'),okAll||okD?'err':'');}else setMsg(t('sent'),'ok');
-  try{const rows=await loadBoard('all');const tot=rows.length;if(tot>=5){const above=rows.filter(x=>x.s>r.n).length;r.topP=Math.max(1,Math.ceil((above+1)/tot*100));refreshResult();}}catch(_){}
+  try{const hs=await getHist();const tot=hs&&+hs.tot||0;if(tot>=5){let above=0;for(const [k,v] of Object.entries(hs.c||{}))if(+k>r.n)above+=+v||0;r.topP=Math.max(1,Math.ceil((above+1)/tot*100));refreshResult();}}catch(_){}
  }catch(e){console.warn(e);setMsg(t('senderr'),'err');}}
 let cutN=0,takeN=0;
+async function cntNum(X,daily){try{if(daily){const r=await fetchR(DB(X+'t')+'.json');if(!r.ok)return 0;const j=await r.json();return j&&j.dk===dayKey(Date.now())?(+j.n||0):0;}const r=await fetchR(DB(X+'c')+'.json');if(!r.ok)return 0;const j=await r.json();return +j||0;}catch(e){return 0;}}
+async function cntPut(X,a,rec){let ok=false;try{const [c,z]=await Promise.all([fetchR(DB(X+'/'+a.uid)+'.json').then(r=>r.ok?r.json():null),fetchR(DB(X+'t')+'.json').then(r=>r.ok?r.json():null)]);const today=dayKey(Date.now()),d0=today*86400000-32400000;const body={};body[X+'/'+a.uid]=rec;if(!c)body[X+'c']={'.sv':{increment:1}};if(!c||!(c.t>=d0)){if(z&&z.dk===today)body[X+'t/n']={'.sv':{increment:1}};else body[X+'t']={dk:today,n:1};}const r=await fetchR(DBROOT+QJ(a),{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});ok=r.ok;}catch(_){}if(!ok){const r=await fetchR(DB(X+'/'+a.uid)+QJ(a),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(rec)});if(!r.ok)throw new Error('put '+r.status);}}
 async function countOf(p,since){const url=since?DB(p)+'.json?orderBy=%22t%22&startAt='+since:DB(p)+'.json?shallow=true';const r=await fetchR(url);if(!r.ok)return 0;const j=await r.json();return j?Object.keys(j).length:0;}
-async function sendClose(take){const k=take?'take':'cut';if(PV){if(take)takeN=2;else cutN=3;return;}try{const a=await fbAuth();await PUT(DB(k+'/'+a.uid)+QA(a),{t:{'.sv':'timestamp'}});const n=await countOf(k);if(take)takeN=n;else cutN=n;refreshResult();}catch(e){console.warn(e);}}
+async function sendClose(take){const k=take?'take':'cut';if(PV){if(take)takeN=2;else cutN=3;return;}try{const a=await fbAuth();await cntPut(k,a,{t:{'.sv':'timestamp'}});const n=await cntNum(k,false);if(take)takeN=n;else cutN=n;refreshResult();}catch(e){console.warn(e);}}
 async function loadBoard(board){const today=dayKey(Date.now());
- const url=board==='d'?DB('d/scores')+'.json?orderBy=%22dk%22&equalTo='+today:DB('all/scores')+'.json?orderBy=%22s%22&limitToLast=5000';
+ const url=board==='d'?DB('d/scores')+'.json?orderBy=%22ds%22&startAt='+(today*1000)+'&endAt='+(today*1000+999)+'&limitToLast=100':DB('all/scores')+'.json?orderBy=%22s%22&limitToLast=100';
  const [d,h]=await Promise.all([fetch(url).then(r=>{if(!r.ok)throw 0;return r.json()}),fetch(DB('hidden')+'.json').then(r=>r.ok?r.json():null).catch(()=>null)]);
  return Object.entries(d||{}).map(([id,v])=>({...v,id})).filter(r=>!(h&&h[r.id])&&typeof r.s==='number');}
 let rankFrom=false;
-function boardHTML(rows,cn,tn,myId){const m=new Map();let mine=null;for(const r of rows){const s=Math.floor(r.s);m.set(s,(m.get(s)||0)+1);if(r.id===myId)mine=s;}
+// 点数ごとの人数は、1時間ごとにまとめた分布（hist）を使う（全員分は読まない）
+let HIST=null,HT=0;async function getHist(){if(HIST&&Date.now()-HT<300000)return HIST;HIST=await fetchR(DB('hist')+'.json').then(x=>x.ok?x.json():null).catch(()=>null);HT=Date.now();return HIST;}
+function boardHTML(rows,cn,tn,myId,hc,mineS){const m=new Map();let mine=null;if(hc){for(const [k,v] of Object.entries(hc))m.set(+k,+v||0);if(mineS!=null){mine=Math.floor(mineS);if(!m.has(mine))m.set(mine,1);}}else for(const r of rows){const s=Math.floor(r.s);m.set(s,(m.get(s)||0)+1);if(r.id===myId)mine=s;}
  const ks=[...m.keys()].sort((a,b)=>b-a);
  let h='<table class="rank"><tr class="cut"><td class="r">'+esc(t('cutRow'))+'</td><td class="n">'+esc(t('gradeCut'))+'</td><td class="c">'+esc(t('people',{n:cn.toLocaleString()}))+'</td></tr><tr class="take"><td class="r">'+esc(t('takeRow'))+'</td><td class="n">'+esc(t('gradeTake'))+'</td><td class="c">'+esc(t('people',{n:tn.toLocaleString()}))+'</td></tr>';
  h+=ks.map(s=>'<tr'+(s===mine?' class="me"':'')+'><td class="r">'+esc(t('times',{n:s}))+'</td><td class="n">'+esc(grade(s))+(s===mine?' ・ '+esc(t('you')):'')+'</td><td class="c">'+esc(t('people',{n:m.get(s).toLocaleString()}))+'</td></tr>').join('');
@@ -608,8 +612,9 @@ async function openRank(board,fromResult){rankFrom=!!fromResult;show('rankPanel'
  const box=$('rankBox');box.innerHTML='<p>'+t('loading')+'</p>';
  if(PV){box.innerHTML=boardHTML([{id:'me',s:best||3},{id:'a',s:5},{id:'b',s:3},{id:'c',s:1}],2,1,'me');return;}
  try{const since=board==='d'?(dayKey(Date.now())*86400000-32400000):0;
-  const [rows,cn,tn]=await Promise.all([loadBoard(board),countOf('cut',since||undefined).catch(()=>0),countOf('take',since||undefined).catch(()=>0)]);const myId=(ls.get('yb_auth',null)||{}).uid;
-  box.innerHTML=boardHTML(rows,cn,tn,myId);
+  const today=dayKey(Date.now()),hs=await getHist();const hc=hs?(board==='all'?hs.c:(hs.dk===today?hs.dc:null)):null;
+  const [rows,cn,tn]=await Promise.all([hc?[]:loadBoard(board),cntNum('cut',board==='d'),cntNum('take',board==='d')]);const myId=(ls.get('yb_auth',null)||{}).uid;
+  box.innerHTML=boardHTML(rows,cn,tn,myId,hc,hc&&board==='all'&&best>0?best:null);
  }catch(e){box.innerHTML='<p>'+t('rankerr')+'</p>';}}
 $('rankBtn').onclick=()=>openRank('d');$('rRank').onclick=()=>openRank('d',true);
 $('rankBack').onclick=()=>{if(rankFrom){show('result');}else showTitle();};

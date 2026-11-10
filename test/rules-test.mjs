@@ -45,5 +45,24 @@ ex('損切りした人の数を読める',await req('GET','yubi/cut',null),true)
 ex('ほかの人の始めた時刻は読めない',await req('GET','yubi/runs/'+U,U2),false);
 ex('hidden に書く',await req('PUT','yubi/hidden/'+U,U,true),false);
 ex('ほかの場所に書く',await req('PUT','sumo/quit/'+U,U,{t:TS}),false);
+// 人数カウンターの試験
+{const INC={'.sv':{increment:1}};
+ex('cut: はじめてで数を増やす',await req('PATCH','yubi','cnt0axxxxxxxxxxxxxxxx',{['cut/'+'cnt0axxxxxxxxxxxxxxxx']:{t:TS},'cutc':INC,'cutt':{dk:dk(),n:1}}),true);
+ex('cut: 記録なしで数だけ増やす',await req('PUT','yubi/cutc','cnt0byyyyyyyyyyyyyyyy',5),false);
+await sleep(2100);
+ex('cut: 2回目で全期間を増やす',await req('PATCH','yubi','cnt0axxxxxxxxxxxxxxxx',{['cut/'+'cnt0axxxxxxxxxxxxxxxx']:{t:TS},'cutc':INC}),false);
+ex('cut: ほかの人のはじめて',await req('PATCH','yubi','cnt0byyyyyyyyyyyyyyyy',{['cut/'+'cnt0byyyyyyyyyyyyyyyy']:{t:TS},'cutc':INC,'cutt/n':INC}),true);
+ex('cut: 今日の数を1にもどす',await req('PATCH','yubi','cnt0czzzzzzzzzzzzzzzz',{['cut/'+'cnt0czzzzzzzzzzzzzzzz']:{t:TS},'cutc':INC,'cutt':{dk:dk(),n:1}}),false);
+ex('cut: ちがう日で書く',await req('PATCH','yubi','cnt0czzzzzzzzzzzzzzzz',{['cut/'+'cnt0czzzzzzzzzzzzzzzz']:{t:TS},'cutc':INC,'cutt':{dk:dk()-1,n:1}}),false);
+{const c=await req('GET','yubi/cutc',null),z=await req('GET','yubi/cutt',null);if(c.j!==2||!z.j||z.j.n!==2){fail++;console.log('NG  cut: 数が合いません',c.j,JSON.stringify(z.j));}else console.log('OK  cut: 全期間2・今日2');}
+ex('take: はじめてで数を増やす',await req('PATCH','yubi','cnt1axxxxxxxxxxxxxxxx',{['take/'+'cnt1axxxxxxxxxxxxxxxx']:{t:TS},'takec':INC,'taket':{dk:dk(),n:1}}),true);
+ex('take: 記録なしで数だけ増やす',await req('PUT','yubi/takec','cnt1byyyyyyyyyyyyyyyy',5),false);
+await sleep(2100);
+ex('take: 2回目で全期間を増やす',await req('PATCH','yubi','cnt1axxxxxxxxxxxxxxxx',{['take/'+'cnt1axxxxxxxxxxxxxxxx']:{t:TS},'takec':INC}),false);
+ex('take: ほかの人のはじめて',await req('PATCH','yubi','cnt1byyyyyyyyyyyyyyyy',{['take/'+'cnt1byyyyyyyyyyyyyyyy']:{t:TS},'takec':INC,'taket/n':INC}),true);
+ex('take: 今日の数を1にもどす',await req('PATCH','yubi','cnt1czzzzzzzzzzzzzzzz',{['take/'+'cnt1czzzzzzzzzzzzzzzz']:{t:TS},'takec':INC,'taket':{dk:dk(),n:1}}),false);
+ex('take: ちがう日で書く',await req('PATCH','yubi','cnt1czzzzzzzzzzzzzzzz',{['take/'+'cnt1czzzzzzzzzzzzzzzz']:{t:TS},'takec':INC,'taket':{dk:dk()-1,n:1}}),false);
+{const c=await req('GET','yubi/takec',null),z=await req('GET','yubi/taket',null);if(c.j!==2||!z.j||z.j.n!==2){fail++;console.log('NG  take: 数が合いません',c.j,JSON.stringify(z.j));}else console.log('OK  take: 全期間2・今日2');}
+}
 console.log(fail?('失敗 '+fail+' 件'):'すべて合格');
 if(fail)process.exit(1);
