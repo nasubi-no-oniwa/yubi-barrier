@@ -109,6 +109,14 @@ table.rank tr.take td.r{color:#1aa34a;font-size:12px}
 #shareT .word{font-size:150px;line-height:1.05;margin-top:30px}#shareT .word.cut{color:#5ef0ff;text-shadow:0 6px 0 #0009,0 0 26px #5ef0ff}#shareT .word.take{color:#5be08a;text-shadow:0 6px 0 #0009,0 0 26px #22c55e}
 #shareT .ttl{font-size:46px;margin-top:6px}#shareT .en{font-size:24px;color:#cfe3ff;margin-top:12px;letter-spacing:.03em}
 </style>
+<!-- nasubi-track: 結果画面とXへの投稿の回数を記録（ゲームの動きには影響しない） -->
+<script>(function(){try{var G="yubi-barrier",IDS=["result"];
+function ev(n){try{if(typeof gtag==='function')gtag('event',n,{game:G});}catch(e){}}
+var o=window.open;window.open=function(u){try{if(/intent\/(post|tweet)/.test(String(u)))ev('x_share');}catch(e){}return o.apply(window,arguments);};
+if(!IDS.length)return;
+function vis(e){if(!e||!e.isConnected||e.closest('[hidden]'))return false;var r=e.getBoundingClientRect();if(r.width<1||r.height<1)return false;for(var n=e;n&&n.nodeType===1;n=n.parentElement){var s=getComputedStyle(n);if(s.display==='none'||s.visibility==='hidden'||parseFloat(s.opacity)<0.05)return false;}return true;}
+var was={};setInterval(function(){try{var any=false;for(var i=0;i<IDS.length;i++){if(vis(document.getElementById(IDS[i])))any=true;}if(any&&!was.v)ev('result_view');was.v=any;}catch(e){}},700);
+}catch(e){}})();</script>
 </head>
 <body>
 <canvas id="chart"></canvas>
