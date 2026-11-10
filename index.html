@@ -603,7 +603,7 @@ async function loadBoard(board){const today=dayKey(Date.now());
 let rankFrom=false;
 // 点数ごとの人数は、1時間ごとにまとめた分布（hist）を使う（全員分は読まない）
 let HIST=null,HT=0;async function getHist(){if(HIST&&Date.now()-HT<300000)return HIST;HIST=await fetchR(DB('hist')+'.json').then(x=>x.ok?x.json():null).catch(()=>null);HT=Date.now();return HIST;}
-function boardHTML(rows,cn,tn,myId,hc,mineS){const m=new Map();let mine=null;if(hc){for(const [k,v] of Object.entries(hc))m.set(+k,+v||0);if(mineS!=null){mine=Math.floor(mineS);if(!m.has(mine))m.set(mine,1);}}else for(const r of rows){const s=Math.floor(r.s);m.set(s,(m.get(s)||0)+1);if(r.id===myId)mine=s;}
+function boardHTML(rows,cn,tn,myId,hc,mineS){const m=new Map();let mine=null;if(hc){for(const [k,v] of Object.entries(hc))if(+v>0)m.set(+k,+v);if(mineS!=null){mine=Math.floor(mineS);if(!m.has(mine))m.set(mine,1);}}else for(const r of rows){const s=Math.floor(r.s);m.set(s,(m.get(s)||0)+1);if(r.id===myId)mine=s;}
  const ks=[...m.keys()].sort((a,b)=>b-a);
  let h='<table class="rank"><tr class="cut"><td class="r">'+esc(t('cutRow'))+'</td><td class="n">'+esc(t('gradeCut'))+'</td><td class="c">'+esc(t('people',{n:cn.toLocaleString()}))+'</td></tr><tr class="take"><td class="r">'+esc(t('takeRow'))+'</td><td class="n">'+esc(t('gradeTake'))+'</td><td class="c">'+esc(t('people',{n:tn.toLocaleString()}))+'</td></tr>';
  h+=ks.map(s=>'<tr'+(s===mine?' class="me"':'')+'><td class="r">'+esc(t('times',{n:s}))+'</td><td class="n">'+esc(grade(s))+(s===mine?' ・ '+esc(t('you')):'')+'</td><td class="c">'+esc(t('people',{n:m.get(s).toLocaleString()}))+'</td></tr>').join('');
